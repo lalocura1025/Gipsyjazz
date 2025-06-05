@@ -1,0 +1,124 @@
+{
+  "voicingRecognition": {
+    "name": "Reconocimiento de Voicings",
+    "description": "Identifica el tipo de voicing mostrado en el diapasón",
+    "difficulty": "beginner",
+    "exercises": [
+      {
+        "id": "vm6_basic",
+        "question": "¿Qué tipo de acorde es este voicing?",
+        "voicing": "minor6",
+        "position": 0,
+        "options": ["Menor 6ta", "Menor 7ma", "Disminuido", "Mayor 7ma"],
+        "correct": 0,
+        "explanation": "Este es un voicing de menor 6ta, fundamental en gipsy jazz. Reemplaza a los acordes menores tradicionales."
+      },
+      {
+        "id": "vdim7_basic", 
+        "question": "Identifica este acorde simétrico:",
+        "voicing": "diminished7",
+        "position": 0,
+        "options": ["Menor 7ma", "Disminuido 7ma", "Medio disminuido", "Aumentado"],
+        "correct": 1,
+        "explanation": "Es un acorde disminuido 7ma. Su estructura simétrica lo hace muy útil para transiciones."
+      }
+    ]
+  },
+  "scalePatterns": {
+    "name": "Patrones de Escalas",
+    "description": "Practica las escalas fundamentales del gipsy jazz",
+    "difficulty": "intermediate",
+    "exercises": [
+      {
+        "id": "harmonic_minor_pattern",
+        "question": "Toca la escala armónica menor de La en 5ta posición",
+        "scale": "harmonicMinor",
+        "root": "A",
+        "position": 5,
+        "pattern": [5, 7, 8, 5, 7, 8, 5, 8],
+        "explanation": "La escala armónica menor es fundamental en gipsy jazz. Nota el intervalo característico de segunda aumentada."
+      },
+      {
+        "id": "phrygian_dominant",
+        "question": "Ejecuta el modo frigio dominante desde Re",
+        "scale": "phrygianDominant", 
+        "root": "D",
+        "position": 3,
+        "pattern": [3, 4, 6, 3, 5, 6, 4, 6],
+        "explanation": "El modo frigio dominante se usa sobre dominantes en tonalidades menores."
+      }
+    ]
+  },
+  "progressionPractice": {
+    "name": "Práctica de Progresiones",
+    "description": "Conecta voicings en progresiones típicas",
+    "difficulty": "advanced",
+    "exercises": [
+      {
+        "id": "ii_v_i_connection",
+        "question": "Conecta suavemente esta progresión ii-V-i en Cm",
+        "progression": "minoriiV",
+        "voicingSet": ["minor6", "dominant7", "minor6"],
+        "positions": [0, 0, 0],
+        "explanation": "Practica el voice leading entre Dm6 - G7 - Cm6. Mantén notas comunes cuando sea posible."
+      },
+      {
+        "id": "diminished_passage",
+        "question": "Ejecuta el pasaje con disminuidos manteniendo líneas suaves",
+        "progression": "diminishedPassage",
+        "voicingSet": ["major7", "diminished7", "minor6", "diminished7", "minor7"],
+        "positions": [0, 0, 0, 1, 0],
+        "explanation": "Los acordes disminuidos actúan como puentes cromáticos entre acordes diatónicos."
+      }
+    ]
+  },
+  "rhythmExercises": {
+    "name": "Ejercicios Rítmicos",
+    "description": "Practica los ritmos característicos del gipsy jazz",
+    "difficulty": "intermediate",
+    "exercises": [
+      {
+        "id": "la_pompe_basic",
+        "question": "Ejecuta el ritmo 'La Pompe' básico en Cm6",
+        "rhythm": "la_pompe",
+        "chord": "minor6",
+        "tempo": 120,
+        "pattern": ["down", "up", "down", "up", "down", "up", "down", "up"],
+        "accents": [0, 2, 4, 6],
+        "explanation": "La Pompe es el ritmo base del gipsy jazz. Enfatiza los tiempos fuertes con golpes hacia abajo."
+      },
+      {
+        "id": "swing_variations",
+        "question": "Practica variaciones swing en progresión ii-V-i",
+        "rhythm": "swing",
+        "progression": "minoriiV",
+        "tempo": 140,
+        "pattern": ["long", "short", "long", "short", "long", "short", "long", "short"],
+        "explanation": "El swing es esencial en gipsy jazz. Las negras se tocan con subdivisión ternaria."
+      }
+    ]
+  },
+  "improvisation": {
+    "name": "Fundamentos de Improvisación",
+    "description": "Desarrolla vocabulario melódico típico del gipsy jazz",
+    "difficulty": "advanced",
+    "exercises": [
+      {
+        "id": "chromatic_approach",
+        "question": "Usa aproximaciones cromáticas para llegar a las notas del acorde",
+        "targetChord": "minor6",
+        "scale": "chromatic",
+        "technique": "chromatic_approach",
+        "explanation": "Las aproximaciones cromáticas son fundamentales en el lenguaje gipsy. Acércate a las notas del acorde desde medio tono arriba o abajo."
+      },
+      {
+        "id": "arpeggio_sequences",
+        "question": "Ejecuta secuencias de arpegios sobre la progresión",
+        "progression": "circleOfFifths",
+        "technique": "arpeggio_sequence",
+        "pattern": [1, 3, 5, 6, 5, 3, 1],
+        "explanation": "Las secuencias de arpegios ayudan a definir claramente la armonía durante la improvisación."
+      }
+    ]
+  }
+}

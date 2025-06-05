@@ -1,0 +1,32 @@
+{
+  "harmonicMinor": {
+    "name": "Armónica Menor",
+    "intervals": ["1", "2", "b3", "4", "5", "b6", "7"],
+    "description": "Escala fundamental del gipsy jazz. Muy característica por su intervalo de segunda aumentada entre b6 y 7."
+  },
+  "phrygianDominant": {
+    "name": "Frigio Dominante",
+    "intervals": ["1", "b2", "3", "4", "5", "b6", "b7"],
+    "description": "5to modo de la menor armónica. Ideal para dominantes en tonalidades menores."
+  },
+  "melodicMinorAsc": {
+    "name": "Menor Melódica Ascendente",
+    "intervals": ["1", "2", "b3", "4", "5", "6", "7"],
+    "description": "Escala jazz menor. Usada para improvisación moderna en gipsy jazz."
+  },
+  "chromatic": {
+    "name": "Cromática",
+    "intervals": ["1", "b2", "2", "b3", "3", "4", "b5", "5", "b6", "6", "b7", "7"],
+    "description": "Para pasos de conexión y ornamentación típica del estilo gipsy."
+  },
+  "diminishedWH": {
+    "name": "Disminuida (Tono-Semitono)",
+    "intervals": ["1", "2", "b3", "4", "b5", "b6", "bb7", "7"],
+    "description": "Escala simétrica ideal para acordes diminuidos en gipsy jazz."
+  },
+  "wholeTone": {
+    "name": "Tonos Enteros",
+    "intervals": ["1", "2", "3", "#4", "#5", "b7"],
+    "description": "Para acordes aumentados y sonoridades impresionistas."
+  }
+}

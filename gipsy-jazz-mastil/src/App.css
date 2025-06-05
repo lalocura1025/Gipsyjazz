@@ -1,0 +1,118 @@
+/* Gipsy Jazz Mástil - Estilos principales */
+@import url('./styles/fretboard.css');
+
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 25%, #fdba74 50%, #fb923c 75%, #f97316 100%);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Variables CSS para el tema gipsy jazz */
+:root {
+  --gipsy-primary: #d97706;
+  --gipsy-secondary: #92400e;
+  --gipsy-accent: #fbbf24;
+  --gipsy-warm: #fed7aa;
+  --gipsy-dark: #451a03;
+  --gipsy-light: #fef3c7;
+  
+  /* Colores para intervalos */
+  --interval-root: #ef4444;
+  --interval-third: #3b82f6;
+  --interval-fifth: #10b981;
+  --interval-seventh: #f59e0b;
+  --interval-sixth: #8b5cf6;
+  --interval-diminished: #78716c;
+  --interval-other: #6b7280;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--gipsy-dark);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gipsy-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gipsy-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gipsy-secondary);
+}
+
+/* Animaciones suaves */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Estilos para tooltips */
+.tooltip {
+  background: var(--gipsy-dark);
+  color: var(--gipsy-light);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejoras de accesibilidad */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus states */
+button:focus,
+select:focus,
+input:focus {
+  outline: 2px solid var(--gipsy-accent);
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .App {
+    background: white !important;
+  }
+  
+  button,
+  .no-print {
+    display: none !important;
+  }
+}

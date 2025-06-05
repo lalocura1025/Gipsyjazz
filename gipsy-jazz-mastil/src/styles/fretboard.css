@@ -1,0 +1,283 @@
+/* Estilos para el diapasón de gipsy jazz */
+
+.fretboard-container {
+  position: relative;
+  width: 100%;
+  min-width: 600px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.fretboard {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: linear-gradient(to bottom, #f3e9d2 0%, #e8dcc0 100%);
+  border: 3px solid #c6ac8f;
+  border-radius: 8px;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.fretboard.left-handed {
+  transform: scaleX(-1);
+}
+
+.fretboard.left-handed .note,
+.fretboard.left-handed .open-string-marker,
+.fretboard.left-handed .fret-number {
+  transform: scaleX(-1);
+}
+
+/* Cuerdas */
+.string {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1;
+}
+
+.string-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, #4a5568 0%, #2d3748 50%, #4a5568 100%);
+  transform: translateY(-50%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Trastes */
+.fret-line {
+  background: linear-gradient(to bottom, #8a7a65 0%, #a89a85 50%, #8a7a65 100%);
+  box-shadow: 
+    2px 0 4px rgba(0, 0, 0, 0.2),
+    -1px 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Marcadores de posición */
+.fret-marker {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #2d3748 0%, #4a5568 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.double-marker {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #2d3748 0%, #4a5568 100%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.double-marker::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #2d3748 0%, #4a5568 100%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Notas */
+.note, .open-string-marker {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: 'Inter', monospace;
+  cursor: pointer;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+  user-select: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.open-string-marker {
+  left: -18px;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%);
+  color: #2d3748;
+  border: 2px solid #a0aec0;
+}
+
+.note.dimmed, .open-string-marker.dimmed {
+  opacity: 0.3;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.note.highlighted, .open-string-marker.highlighted {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 2px rgba(255, 255, 255, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.note.selected, .open-string-marker.selected {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 0 0 3px #fbbf24,
+    0 0 0 5px rgba(251, 191, 36, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.note:hover, .open-string-marker:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Números de trastes */
+.fret-numbers {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  z-index: 5;
+}
+
+.fret-number {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b5b4e;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Cejilla */
+.nut {
+  background: linear-gradient(to bottom, #3d2914 0%, #5c4033 50%, #3d2914 100%);
+  box-shadow: 
+    2px 0 4px rgba(0, 0, 0, 0.3),
+    inset 1px 0 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.4),
+      0 0 0 3px #fbbf24,
+      0 0 0 5px rgba(251, 191, 36, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.4),
+      0 0 0 3px #fbbf24,
+      0 0 0 8px rgba(251, 191, 36, 0.1);
+  }
+}
+
+@keyframes noteAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.note, .open-string-marker {
+  animation: noteAppear 0.3s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .fretboard-container {
+    min-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .fretboard {
+    min-width: 600px;
+    height: 280px;
+  }
+  
+  .note, .open-string-marker {
+    width: 20px;
+    height: 20px;
+    font-size: 9px;
+  }
+  
+  .fret-number {
+    font-size: 10px;
+  }
+}
+
+/* Temas de color específicos para gipsy jazz */
+.gipsy-theme {
+  --color-primary: #d97706;
+  --color-secondary: #92400e;
+  --color-accent: #fbbf24;
+  --color-warm: #fed7aa;
+  --color-dark: #451a03;
+}
+
+.gipsy-theme .fretboard {
+  background: linear-gradient(to bottom, 
+    #fef3c7 0%, 
+    #fed7aa 25%, 
+    #fdba74 50%, 
+    #fb923c 75%, 
+    #f97316 100%);
+  border-color: var(--color-secondary);
+}
+
+.gipsy-theme .string-line {
+  background: linear-gradient(to right, 
+    var(--color-dark) 0%, 
+    #78716c 50%, 
+    var(--color-dark) 100%);
+}
+
+.gipsy-theme .note.highlighted {
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 0 2px var(--color-accent),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}

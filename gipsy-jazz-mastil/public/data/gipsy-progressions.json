@@ -1,0 +1,224 @@
+{
+  "minoriiV": {
+    "name": "ii-V-i Menor",
+    "description": "Progresión fundamental en tonalidades menores. La base del gipsy jazz.",
+    "chords": [
+      {
+        "symbol": "Dm6",
+        "numeral": "ii6",
+        "function": "Subdominante menor",
+        "duration": 2
+      },
+      {
+        "symbol": "G7",
+        "numeral": "V7",
+        "function": "Dominante (frigio dominante)",
+        "duration": 2
+      },
+      {
+        "symbol": "Cm6",
+        "numeral": "i6", 
+        "function": "Tónica menor",
+        "duration": 4
+      }
+    ],
+    "key": "Cm",
+    "tempo": 120,
+    "style": "Swing"
+  },
+  "andalusian": {
+    "name": "Cadencia Andaluza",
+    "description": "Progresión descendente característica del flamenco adaptada al gipsy jazz.",
+    "chords": [
+      {
+        "symbol": "Am",
+        "numeral": "i",
+        "function": "Tónica menor",
+        "duration": 2
+      },
+      {
+        "symbol": "G7",
+        "numeral": "bVII7",
+        "function": "Dominante de bVI",
+        "duration": 2
+      },
+      {
+        "symbol": "F",
+        "numeral": "bVI",
+        "function": "Submediante bemol",
+        "duration": 2
+      },
+      {
+        "symbol": "E7",
+        "numeral": "V7",
+        "function": "Dominante (frigio dominante)",
+        "duration": 2
+      }
+    ],
+    "key": "Am",
+    "tempo": 100,
+    "style": "Rumba"
+  },
+  "circleOfFifths": {
+    "name": "Círculo de Quintas Descendente",
+    "description": "Progresión por quintas descendentes típica del jazz y gipsy.",
+    "chords": [
+      {
+        "symbol": "CM7",
+        "numeral": "IM7",
+        "function": "Tónica mayor",
+        "duration": 2
+      },
+      {
+        "symbol": "A7",
+        "numeral": "VI7",
+        "function": "Dominante secundario",
+        "duration": 2
+      },
+      {
+        "symbol": "Dm6",
+        "numeral": "ii6",
+        "function": "Subdominante menor",
+        "duration": 2
+      },
+      {
+        "symbol": "G7",
+        "numeral": "V7",
+        "function": "Dominante",
+        "duration": 2
+      }
+    ],
+    "key": "C",
+    "tempo": 140,
+    "style": "Swing"
+  },
+  "diminishedPassage": {
+    "name": "Pasaje con Disminuidos",
+    "description": "Uso de acordes disminuidos como acordes de paso entre grados diatónicos.",
+    "chords": [
+      {
+        "symbol": "CM7",
+        "numeral": "IM7",
+        "function": "Tónica mayor",
+        "duration": 2
+      },
+      {
+        "symbol": "C#dim7",
+        "numeral": "#idim7",
+        "function": "Acorde de paso",
+        "duration": 1
+      },
+      {
+        "symbol": "Dm6",
+        "numeral": "ii6",
+        "function": "Subdominante menor",
+        "duration": 2
+      },
+      {
+        "symbol": "D#dim7",
+        "numeral": "#iidim7",
+        "function": "Acorde de paso",
+        "duration": 1
+      },
+      {
+        "symbol": "Em7",
+        "numeral": "iii7",
+        "function": "Mediante menor",
+        "duration": 2
+      }
+    ],
+    "key": "C",
+    "tempo": 130,
+    "style": "Swing"
+  },
+  "djangoStyle": {
+    "name": "Estilo Django Reinhardt",
+    "description": "Progresión característica del estilo de Django con sustituciones tritona.",
+    "chords": [
+      {
+        "symbol": "Am6",
+        "numeral": "i6",
+        "function": "Tónica menor",
+        "duration": 2
+      },
+      {
+        "symbol": "F7",
+        "numeral": "bVI7",
+        "function": "Dominante sustituto",
+        "duration": 2
+      },
+      {
+        "symbol": "Dm6",
+        "numeral": "iv6",
+        "function": "Subdominante menor",
+        "duration": 2
+      },
+      {
+        "symbol": "Bb7",
+        "numeral": "bII7",
+        "function": "Sustitución tritonal de V7",
+        "duration": 2
+      }
+    ],
+    "key": "Am",
+    "tempo": 160,
+    "style": "Fast Swing"
+  },
+  "allOfMe": {
+    "name": "All of Me (Gipsy Style)",
+    "description": "Versión gipsy jazz del estándar All of Me con voicings característicos.",
+    "chords": [
+      {
+        "symbol": "CM7",
+        "numeral": "IM7",
+        "function": "Tónica mayor",
+        "duration": 4
+      },
+      {
+        "symbol": "C7",
+        "numeral": "I7",
+        "function": "Dominante secundario",
+        "duration": 4
+      },
+      {
+        "symbol": "F",
+        "numeral": "IV",
+        "function": "Subdominante",
+        "duration": 4
+      },
+      {
+        "symbol": "Fm6",
+        "numeral": "iv6",
+        "function": "Subdominante menor",
+        "duration": 4
+      },
+      {
+        "symbol": "Em7",
+        "numeral": "iii7",
+        "function": "Mediante menor",
+        "duration": 2
+      },
+      {
+        "symbol": "A7",
+        "numeral": "VI7",
+        "function": "Dominante secundario",
+        "duration": 2
+      },
+      {
+        "symbol": "Dm6",
+        "numeral": "ii6",
+        "function": "Subdominante menor",
+        "duration": 2
+      },
+      {
+        "symbol": "G7",
+        "numeral": "V7",
+        "function": "Dominante",
+        "duration": 2
+      }
+    ],
+    "key": "C",
+    "tempo": 120,
+    "style": "Medium Swing"
+  }
+}
