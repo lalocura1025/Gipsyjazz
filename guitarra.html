@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diapasón Interactivo Avanzado - Entrenador v3.4 (CSS Mejorado)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base & Layout --- */
+        :root {
+            /* Colores principales */
+            --clr-primary: #3498db; /* Azul */
+            --clr-secondary: #2ecc71; /* Verde */
+            --clr-accent: #e74c3c; /* Rojo */
+            --clr-warning: #f1c40f; /* Amarillo */
+            --clr-purple: #9b59b6; /* Púrpura */
+            --clr-orange: #e67e22; /* Naranja */
+
+            /* Tonos neutros */
+            --clr-dark: #2c3e50;
+            --clr-light: #ecf0f1;
+            --clr-grey: #bdc3c7;
+            --clr-grey-dark: #7f8c8d;
+            --clr-white: #ffffff;
+            --clr-black: #000000;
+
+            /* Mástil */
+            --clr-fretboard: #e3c4a1; /* Madera más clara */
+            --clr-fretboard-border: #6b4226; /* Marrón oscuro borde */
+            --clr-fret: #a0a0a0; /* Gris medio para trastes */
+            --clr-nut: #4d2e1a; /* Marrón muy oscuro para cejuela */
+            --clr-string: #666; /* Gris oscuro para cuerdas */
+            --clr-fret-marker: #4d2e1a; /* Marrón muy oscuro para puntos */
+
+            /* Notas e Intervalos */
+            --clr-note-text: var(--clr-white);
+            --clr-note-text-dark: var(--clr-dark);
+            --clr-note-selected-bg: var(--clr-dark);
+            --clr-note-selected-text: var(--clr-white);
+
+            /* Colores específicos de intervalos */
+            --clr-interval-root: var(--clr-accent); /* Rojo */
+            --clr-interval-m2: var(--clr-grey-dark);
+            --clr-interval-M2: var(--clr-grey);
+            --clr-interval-m3: var(--clr-primary); /* Azul */
+            --clr-interval-M3: var(--clr-primary); /* Azul */
+            --clr-interval-P4: var(--clr-orange); /* Naranja */
+            --clr-interval-TT: var(--clr-purple); /* Púrpura (Tritono) */
+            --clr-interval-P5: var(--clr-secondary); /* Verde */
+            --clr-interval-m6: var(--clr-grey);
+            --clr-interval-M6: var(--clr-purple); /* Púrpura */
+            --clr-interval-m7: var(--clr-warning); /* Amarillo */
+            --clr-interval-M7: var(--clr-warning); /* Amarillo */
+            --clr-interval-P8: var(--clr-interval-root); /* Rojo (Octava) */
+            --clr-interval-other: var(--clr-grey-dark); /* Gris oscuro por defecto */
+
+            /* Colores para texto sobre fondos claros/oscuros */
+            --clr-text-on-light: var(--clr-note-text-dark);
+            --clr-text-on-dark: var(--clr-note-text);
+            --clr-text-on-yellow: var(--clr-note-text-dark); /* Texto oscuro sobre amarillo */
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font */
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 15px;
+            color: var(--clr-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; /* Improved font rendering */
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 15px auto;
+            background-color: var(--clr-white);
+            padding: 25px; /* Increased padding */
+            border-radius: 12px; /* Softer radius */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07); /* Softer shadow */
+        }
+        h1, h2 {
+            text-align: center;
+            color: var(--clr-dark);
+            margin-bottom: 1em;
+        }
+        h1 { font-size: 2em; font-weight: 700; } /* Bolder H1 */
+        h2 { font-size: 1.4em; margin-top: 1.5em; font-weight: 600; }
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0; /* Lighter hr */
+            margin: 35px 0; /* Increased margin */
+        }
+
+        /* --- Controls --- */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Slightly wider min for controls */
+            gap: 18px 22px; /* Increased gap */
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: var(--clr-light);
+            border-radius: 8px; /* Consistent radius */
+            border: 1px solid #dde2e7; /* Lighter border */
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+         .control-group.checkbox-group {
+             align-items: center;
+             justify-content: center;
+             padding-top: 1.5em;
+             min-height: 42px; /* Adjusted height */
+        }
+         .control-group.checkbox-group label {
+             margin-bottom: 0;
+             margin-left: 8px; /* Increased margin */
+             cursor: pointer;
+             font-size: 0.9em; /* Consistent font size */
+        }
+        .controls label:not(.checkbox-label) {
+            font-size: 0.88em; /* Slightly larger */
+            margin-bottom: 6px;
+            font-weight: 600; /* Bolder label */
+            color: var(--clr-dark);
+            text-align: center;
+            display: block;
+        }
+        .controls select, .controls button {
+            padding: 10px 14px; /* Increased padding */
+            border: 1px solid var(--clr-grey);
+            border-radius: 6px; /* Softer radius */
+            background-color: var(--clr-white);
+            cursor: pointer;
+            font-size: 0.95em; /* Slightly larger font */
+            text-align: center;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            height: 42px; /* Increased height */
+            width: 100%;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .controls select:focus, .controls button:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+        }
+        .controls select {
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2334495E%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%; /* Adjusted position */
+            background-size: .7em auto; /* Adjusted size */
+            padding-right: 35px; /* Increased padding for arrow */
+            text-align-last: center;
+        }
+        .controls button {
+            background-image: linear-gradient(to bottom, var(--clr-primary) 0%, #2a80b3 100%); /* Subtle gradient */
+            color: white;
+            border: none;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+        }
+        .controls button:hover {
+            background-image: linear-gradient(to bottom, #3ea4e0 0%, var(--clr-primary) 100%);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+         .controls button:active {
+             transform: translateY(1px);
+             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .controls button#resetBtn { background-image: linear-gradient(to bottom, var(--clr-accent) 0%, #c0392b 100%); }
+        .controls button#resetBtn:hover { background-image: linear-gradient(to bottom, #e95c4e 0%, var(--clr-accent) 100%); }
+
+        .controls button#clearHighlightsBtn { background-image: linear-gradient(to bottom, var(--clr-dark) 0%, #1e2b37 100%); }
+        .controls button#clearHighlightsBtn:hover { background-image: linear-gradient(to bottom, #4a6179 0%, var(--clr-dark) 100%); }
+
+        .controls select:disabled {
+            background-color: #e9ecef; /* Lighter disabled bg */
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        /* Checkbox styling */
+        .controls input[type="checkbox"] {
+             width: 18px; /* Slightly larger */
+             height: 18px;
+             cursor: pointer;
+             accent-color: var(--clr-primary); /* Modern way to color checkboxes */
+        }
+
+        /* --- Fretboard --- */
+        .fretboard-container {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 30px;
+            margin-bottom: 25px;
+            background: linear-gradient(to right, #f7f7f7, #ffffff, #f7f7f7); /* Softer gradient */
+            border-radius: 8px;
+            padding: 15px 0;
+        }
+        .fretboard {
+            min-width: 900px;
+            height: 260px;
+            background-color: var(--clr-fretboard);
+            border: 2px solid var(--clr-fretboard-border);
+            position: relative;
+            margin: 30px auto 0 auto;
+            border-radius: 8px; /* Consistent radius */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Softer shadow */
+        }
+        .string {
+            position: absolute;
+            background-color: var(--clr-string);
+            height: 2px; width: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .fret-line {
+            position: absolute;
+            width: 3px; height: 100%;
+            background-color: var(--clr-fret);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .fret-line.nut { width: 8px; background-color: var(--clr-nut); }
+        .fret-number {
+            position: absolute;
+            color: #444; /* Darker fret numbers */
+            font-size: 0.85rem; /* Slightly larger */
+            pointer-events: none;
+            top: -25px;
+            transform: translateX(-50%);
+            font-weight: normal;
+        }
+        .fret-marker {
+             position: absolute;
+             width: 12px; height: 12px;
+             background-color: var(--clr-fret-marker);
+             border-radius: 50%;
+             transform: translate(-50%, -50%);
+             opacity: 0.5; /* Slightly less opaque */
+             z-index: 0;
+             pointer-events: none;
+        }
+
+        /* --- Notes --- */
+        .note-area {
+             position: absolute;
+             width: 40px;
+             height: 40px;
+             transform: translate(-50%, -50%);
+             cursor: pointer;
+             z-index: 3;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+        }
+        .note-display {
+            position: relative;
+            width: 30px; /* Increased size */
+            height: 30px; /* Increased size */
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.2); /* Softer border */
+            background-color: var(--clr-grey);
+            color: var(--clr-text-on-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s ease-out; /* Smoother transition */
+            font-size: 11px; /* Base size for text inside */
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Slightly more pronounced shadow */
+            pointer-events: none;
+            user-select: none;
+            line-height: 1.1;
+            text-align: center;
+        }
+         .note-display .note-name {
+             font-size: 13px; /* Increased size */
+             display: block;
+        }
+         .note-display .note-function {
+             font-size: 10px; /* Increased size */
+             display: block;
+             opacity: 0.85;
+             margin-top: 0px; /* Adjusted spacing */
+        }
+         .note-area:hover .note-display {
+             box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Stronger hover shadow */
+             transform: scale(1.1); /* Slightly larger scale on hover */
+        }
+
+        /* Estilos de estado y resaltado */
+        .note-display.selected { background-color: var(--clr-note-selected-bg); color: var(--clr-note-selected-text); }
+        .note-display.tonic {
+            background-color: var(--clr-interval-root) !important;
+            color: var(--clr-text-on-dark);
+            border: 2px solid var(--clr-white);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0,0,0,0.3); /* Enhanced tonic shadow */
+        }
+        .note-display.highlight { opacity: 1; }
+        .note-display.highlight-bass {
+            border: 2px solid var(--clr-white);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.7), 0 0 12px 2px var(--clr-black); /* Bass note more prominent */
+        }
+        .note-display.highlight-root {
+             background-color: var(--clr-interval-root) !important;
+             color: var(--clr-text-on-dark);
+             opacity: 0.85;
+             border: 1px dashed var(--clr-white);
+        }
+
+
+        /* Colores de Intervalos aplicados a .note-display.highlight */
+        .note-display.highlight.interval-1 { background-color: var(--clr-interval-root); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-b2 { background-color: var(--clr-interval-m2); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-2 { background-color: var(--clr-interval-M2); color: var(--clr-text-on-light); }
+        .note-display.highlight.interval-b3 { background-color: var(--clr-interval-m3); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-3 { background-color: var(--clr-interval-M3); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-4 { background-color: var(--clr-interval-P4); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-b5,
+        .note-display.highlight.interval-a4,
+        .note-display.highlight.interval-TT { background-color: var(--clr-interval-TT); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-5 { background-color: var(--clr-interval-P5); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-a5 { background-color: var(--clr-interval-P5); color: var(--clr-text-on-dark); border: 1px dashed var(--clr-black); }
+        .note-display.highlight.interval-b6 { background-color: var(--clr-interval-m6); color: var(--clr-text-on-light); }
+        .note-display.highlight.interval-6 { background-color: var(--clr-interval-M6); color: var(--clr-text-on-dark); }
+        .note-display.highlight.interval-bb7 { background-color: var(--clr-interval-m7); color: var(--clr-text-on-yellow); border: 1px dashed var(--clr-black); }
+        .note-display.highlight.interval-b7 { background-color: var(--clr-interval-m7); color: var(--clr-text-on-yellow); }
+        .note-display.highlight.interval-7 { background-color: var(--clr-interval-M7); color: var(--clr-text-on-yellow); }
+        .note-display.highlight:not([class*='interval-']) {
+             background-color: var(--clr-interval-other);
+             color: var(--clr-text-on-dark);
+        }
+
+
+        /* --- Info Display --- */
+        #infoContainer {
+            margin-top: 25px;
+            background-color: var(--clr-light);
+            border-radius: 8px;
+            padding: 20px 25px;
+            text-align: left;
+            font-size: 0.98em; /* Slightly larger base font */
+            border: 1px solid #dde2e7;
+        }
+        #infoContainer h2 { text-align: left; font-size: 1.25em; margin-bottom: 12px; }
+        #selectedNotes, #intervalsDisplay, #chordName {
+            font-weight: 600; /* Bolder */
+            margin: 10px 0; /* Increased margin */
+            min-height: 1.3em;
+            line-height: 1.5;
+        }
+        #chordName { color: var(--clr-accent); font-size: 1.1em; } /* Larger chord name */
+        #currentStudyPattern {
+            font-weight: 600;
+            color: var(--clr-primary);
+            margin-bottom: 12px;
+            min-height: 1.3em;
+            font-size: 1.05em;
+        }
+        #equivalentPatterns {
+            font-style: italic;
+            color: var(--clr-secondary);
+            margin-top: 8px;
+            min-height: 1.3em;
+            font-size: 0.95em;
+        }
+        .highlighted-notes-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Increased gap */
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--clr-grey);
+        }
+        .highlighted-note {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 12px; /* Increased padding */
+            border-radius: 16px; /* More rounded */
+            /* background-color: var(--clr-grey); */ /* Let interval class handle background */
+            /* color: var(--clr-text-on-light); */ /* Let interval class handle text color */
+            font-size: 0.9em; /* Slightly larger */
+            font-weight: 600;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.08);
+            transition: transform 0.15s ease-out;
+        }
+        .highlighted-note:hover {
+            transform: translateY(-1px);
+        }
+
+        .interval-color-indicator {
+            width: 14px; /* Larger indicator */
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 7px; /* Increased margin */
+            border: 1px solid rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        /* Aplicar colores a los indicadores y texto del highlighted-note */
+        .highlighted-note.interval-1 { background-color: var(--clr-interval-root); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-1 .interval-color-indicator { background-color: var(--clr-interval-root); }
+        .highlighted-note.interval-b2 { background-color: var(--clr-interval-m2); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-b2 .interval-color-indicator { background-color: var(--clr-interval-m2); }
+        .highlighted-note.interval-2 { background-color: var(--clr-interval-M2); color: var(--clr-text-on-light); }
+        .highlighted-note.interval-2 .interval-color-indicator { background-color: var(--clr-interval-M2); }
+        .highlighted-note.interval-b3 { background-color: var(--clr-interval-m3); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-b3 .interval-color-indicator { background-color: var(--clr-interval-m3); }
+        .highlighted-note.interval-3 { background-color: var(--clr-interval-M3); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-3 .interval-color-indicator { background-color: var(--clr-interval-M3); }
+        .highlighted-note.interval-4 { background-color: var(--clr-interval-P4); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-4 .interval-color-indicator { background-color: var(--clr-interval-P4); }
+        .highlighted-note.interval-b5,
+        .highlighted-note.interval-a4,
+        .highlighted-note.interval-TT { background-color: var(--clr-interval-TT); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-b5 .interval-color-indicator,
+        .highlighted-note.interval-a4 .interval-color-indicator,
+        .highlighted-note.interval-TT .interval-color-indicator { background-color: var(--clr-interval-TT); }
+        .highlighted-note.interval-5 { background-color: var(--clr-interval-P5); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-5 .interval-color-indicator { background-color: var(--clr-interval-P5); }
+        .highlighted-note.interval-a5 { background-color: var(--clr-interval-P5); color: var(--clr-text-on-dark); border: 1px dashed var(--clr-black); }
+        .highlighted-note.interval-a5 .interval-color-indicator { background-color: var(--clr-interval-P5); border: 1px dashed var(--clr-black); }
+        .highlighted-note.interval-b6 { background-color: var(--clr-interval-m6); color: var(--clr-text-on-light); }
+        .highlighted-note.interval-b6 .interval-color-indicator { background-color: var(--clr-interval-m6); }
+        .highlighted-note.interval-6 { background-color: var(--clr-interval-M6); color: var(--clr-text-on-dark); }
+        .highlighted-note.interval-6 .interval-color-indicator { background-color: var(--clr-interval-M6); }
+        .highlighted-note.interval-bb7 { background-color: var(--clr-interval-m7); color: var(--clr-text-on-yellow); border: 1px dashed var(--clr-black); }
+        .highlighted-note.interval-bb7 .interval-color-indicator { background-color: var(--clr-interval-m7); border: 1px dashed var(--clr-black); }
+        .highlighted-note.interval-b7 { background-color: var(--clr-interval-m7); color: var(--clr-text-on-yellow); }
+        .highlighted-note.interval-b7 .interval-color-indicator { background-color: var(--clr-interval-m7); }
+        .highlighted-note.interval-7 { background-color: var(--clr-interval-M7); color: var(--clr-text-on-yellow); }
+        .highlighted-note.interval-7 .interval-color-indicator { background-color: var(--clr-interval-M7); }
+        .highlighted-note:not([class*='interval-']) {
+             background-color: var(--clr-interval-other);
+             color: var(--clr-text-on-dark);
+        }
+         .highlighted-note:not([class*='interval-']) .interval-color-indicator {
+             background-color: var(--clr-interval-other);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Entrenador de Mástil Avanzado v3.4 (CSS Mejorado)</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="tuningSelect">Afinación:</label>
+                <select id="tuningSelect"></select>
+            </div>
+            <div class="control-group">
+                <label for="rootNoteSelect">Tónica:</label>
+                <select id="rootNoteSelect"></select>
+            </div>
+            <div class="control-group">
+                <label for="patternTypeSelect">Modo:</label>
+                <select id="patternTypeSelect">
+                    <option value="interval">Intervalo Simple</option>
+                    <option value="scale">Escala</option>
+                    <option value="arpeggio">Arpegio</option>
+                    <option value="chord">Acorde (Genérico)</option>
+                    <option value="dropVoicing">Drop Voicing</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="patternSelect">Patrón/Voicing:</label>
+                <select id="patternSelect"></select>
+            </div>
+             <div class="control-group">
+                <label for="inversionSelect">Inversión/Estado:</label>
+                <select id="inversionSelect" disabled>
+                    <option value="0">Fundamental</option>
+                    </select>
+            </div>
+             <div class="control-group">
+                <button id="showPatternBtn">Mostrar</button>
+            </div>
+            <div class="control-group checkbox-group">
+                 <input type="checkbox" id="highlightRootsCheckbox">
+                 <label for="highlightRootsCheckbox" class="checkbox-label">Resaltar Tónicas</label>
+            </div>
+             <div class="control-group checkbox-group">
+                 <input type="checkbox" id="useFlatsCheckbox">
+                 <label for="useFlatsCheckbox" class="checkbox-label">Usar Bemoles (b)</label>
+            </div>
+            <div class="control-group">
+                <button id="clearHighlightsBtn">Limpiar Vis.</button>
+            </div>
+             <div class="control-group">
+                <button id="resetBtn">Resetear Todo</button>
+            </div>
+        </div>
+
+        <div class="fretboard-container">
+            <div class="fretboard" id="fretboard">
+                </div>
+        </div>
+
+        <div id="infoContainer">
+            <p id="currentStudyPattern">Visualización actual: (Ninguna)</p>
+            <div class="highlighted-notes-display" id="highlightedNotesDisplay">
+                </div>
+            <p id="equivalentPatterns">Equivalencias: (Ninguna)</p>
+            <hr>
+            <h2>Identificación de Acordes (Click en notas)</h2>
+            <p id="selectedNotes">Notas seleccionadas: (Ninguna)</p>
+            <p>Intervalos detectados (Relativos a la 1ª nota clickeada): <span id="intervalsDisplay">(Ninguno)</span></p>
+            <p>Acorde detectado: <span id="chordName">N/A</span></p>
+        </div>
+    </div>
+
+    <script>
+        class Diapason {
+            constructor(fretboardId = 'fretboard') {
+                // --- Constants & Configuration ---
+                this.NUM_STRINGS = 6;
+                this.NUM_FRETS = 15;
+                this.NOTES_SHARP = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                this.NOTES_FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+                this.useFlats = false;
+
+                this.TUNINGS = {
+                    'Standard (EADGBE)': [4, 9, 2, 7, 11, 4],
+                    'Drop D (DADGBE)':   [2, 9, 2, 7, 11, 4],
+                    'Open G (DGDGBD)':   [2, 7, 2, 7, 11, 2],
+                    'Open D (DADF#AD)':  [2, 9, 2, 6, 9, 2]
+                };
+                this.currentTuningName = 'Standard (EADGBE)';
+                this.currentTuning = this.TUNINGS[this.currentTuningName];
+
+                this.intervalSemitoneMap = {
+                    'P1': 0, '1': 0, 'R': 0, 'm2': 1, 'b2': 1, 'M2': 2, '2': 2, 'A2': 3, '#2': 3, 'd3': 2,
+                    'm3': 3, 'b3': 3, 'M3': 4, '3': 4, 'd4': 4, 'P4': 5, '4': 5, 'A4': 6, '#4': 6, 'TT': 6,
+                    'd5': 6, 'b5': 6, 'P5': 7, '5': 7, 'A5': 8, '#5': 8, 'm6': 8, 'b6': 8, 'M6': 9, '6': 9,
+                    'd7': 9, 'bb7': 9, 'm7': 10, 'b7': 10, 'M7': 11, '7': 11, 'A7': 12, '#7': 12, 'P8': 12, '8': 12,
+                    'b9': 1, '9': 2, '#9': 3, '11': 5, '#11': 6, 'b13': 8, '13': 9
+                };
+                this.semitoneIntervalMap = {};
+                const preferredIntervalNames = ['1', 'b2', '2', 'b3', '3', '4', 'TT', '5', 'b6', '6', 'b7', '7', '8'];
+                for (let i = 0; i < 12; i++) {
+                     for (const [name, value] of Object.entries(this.intervalSemitoneMap)) {
+                         if (value === i) {
+                             if (!this.semitoneIntervalMap[i] || preferredIntervalNames.includes(name)) {
+                                 this.semitoneIntervalMap[i] = name;
+                             }
+                         }
+                     }
+                     if (!this.semitoneIntervalMap[i]) {
+                         for (const [name, value] of Object.entries(this.intervalSemitoneMap)) {
+                             if (value === i) { this.semitoneIntervalMap[i] = name; break; }
+                         }
+                     }
+                }
+                this.semitoneIntervalMap[12] = '8';
+
+                this.intervalDictionary = {
+                     'Unísono (P1)': ['1'], 'Segunda Menor (m2)': ['b2'], 'Segunda Mayor (M2)': ['2'],
+                     'Tercera Menor (m3)': ['b3'], 'Tercera Mayor (M3)': ['3'], 'Cuarta Justa (P4)': ['4'],
+                     'Tritono (TT)': ['TT'], 'Quinta Justa (P5)': ['5'], 'Sexta Menor (m6)': ['b6'],
+                     'Sexta Mayor (M6)': ['6'], 'Séptima Menor (m7)': ['b7'], 'Séptima Mayor (M7)': ['7'],
+                     'Octava Justa (P8)': ['8']
+                };
+                this.scaleDictionary = {
+                    'Major (Ionian)': ['1', '2', '3', '4', '5', '6', '7'], 'Natural Minor (Aeolian)': ['1', '2', 'b3', '4', '5', 'b6', 'b7'],
+                    'Harmonic Minor': ['1', '2', 'b3', '4', '5', 'b6', '7'], 'Melodic Minor (Ascending)': ['1', '2', 'b3', '4', '5', '6', '7'],
+                    'Dorian': ['1', '2', 'b3', '4', '5', '6', 'b7'], 'Phrygian': ['1', 'b2', 'b3', '4', '5', 'b6', 'b7'],
+                    'Lydian': ['1', '2', '3', '#4', '5', '6', '7'], 'Mixolydian': ['1', '2', '3', '4', '5', '6', 'b7'],
+                    'Locrian': ['1', 'b2', 'b3', '4', 'b5', 'b6', 'b7'], 'Pentatonic Major': ['1', '2', '3', '5', '6'],
+                    'Pentatonic Minor': ['1', 'b3', '4', '5', 'b7'], 'Blues': ['1', 'b3', '4', 'b5', '5', 'b7'],
+                    'Whole Tone': ['1', '2', '3', '#4', '#5', 'b7'], 'Diminished (H-W)': ['1', 'b2', 'b3', '3', '#4', '5', '6', 'b7'],
+                    'Diminished (W-H)': ['1', '2', 'b3', '4', 'b5', 'b6', 'bb7', '7']
+                };
+                this.arpeggioDictionary = {
+                    'Major Triad': ['1', '3', '5'], 'Minor Triad': ['1', 'b3', '5'], 'Augmented Triad': ['1', '3', '#5'],
+                    'Diminished Triad': ['1', 'b3', 'b5'], 'Major 7': ['1', '3', '5', '7'], 'Dominant 7': ['1', '3', '5', 'b7'],
+                    'Minor 7': ['1', 'b3', '5', 'b7'], 'Minor Major 7': ['1', 'b3', '5', '7'],
+                    'Half-Diminished 7 (m7b5)': ['1', 'b3', 'b5', 'b7'], 'Diminished 7': ['1', 'b3', 'b5', 'bb7'],
+                    'Augmented Major 7': ['1', '3', '#5', '7'], 'Dominant 7b5': ['1', '3', 'b5', 'b7']
+                };
+                this.chordDictionary = {
+                    'Major (Triad)': ['1', '3', '5'], 'Minor (Triad)': ['1', 'b3', '5'], 'Dim (Triad)': ['1', 'b3', 'b5'], 'Aug (Triad)': ['1', '3', '#5'],
+                    'Maj7': ['1', '3', '5', '7'], '7 (Dominant)': ['1', '3', '5', 'b7'], 'm7': ['1', 'b3', '5', 'b7'],
+                    'm7b5 (Half-Dim)': ['1', 'b3', 'b5', 'b7'], 'dim7': ['1', 'b3', 'b5', 'bb7'], 'Maj6': ['1', '3', '5', '6'],
+                    'm6': ['1', 'b3', '5', '6'], 'sus4': ['1', '4', '5'], 'sus2': ['1', '2', '5'], '7sus4': ['1', '4', '5', 'b7'],
+                    'add9': ['1', '3', '5', '9'], 'madd9': ['1', 'b3', '5', '9']
+                };
+                this.dropVoicingDictionary = {
+                    'Maj7 (Drop 2)': { fundamental: ['5', '1', '3', '7'], firstInv: ['7', '3', '5', '1'], secondInv: ['1', '5', '7', '3'], thirdInv: ['3', '7', '1', '5'] },
+                    'm7 (Drop 2)': { fundamental: ['5', '1', 'b3', 'b7'], firstInv: ['b7', 'b3', '5', '1'], secondInv: ['1', '5', 'b7', 'b3'], thirdInv: ['b3', 'b7', '1', '5'] },
+                    '7 (Dominant) (Drop 2)': { fundamental: ['5', '1', '3', 'b7'], firstInv: ['b7', '3', '5', '1'], secondInv: ['1', '5', 'b7', '3'], thirdInv: ['3', 'b7', '1', '5'] },
+                    'm7b5 (Drop 2)': { fundamental: ['b5', '1', 'b3', 'b7'], firstInv: ['b7', 'b3', 'b5', '1'], secondInv: ['1', 'b5', 'b7', 'b3'], thirdInv: ['b3', 'b7', '1', 'b5'] },
+                    'dim7 (Drop 2)': { fundamental: ['b5', '1', 'b3', 'bb7'], firstInv: ['bb7', 'b3', 'b5', '1'], secondInv: ['1', 'b5', 'bb7', 'b3'], thirdInv: ['b3', 'bb7', '1', 'b5'] }
+                };
+                this.equivalentPatterns = { 'Major (Ionian)': ['Aeolian (starting on 6th)', 'Dorian (starting on 2nd)'], 'Pentatonic Major': ['Pentatonic Minor (starting on 6th/b3 of minor)'] };
+
+                this.selectedNotesData = []; this.tonicInfo = null; this.currentHighlight = null;
+                this.identifiedChordInfo = null; this.currentInversionIndex = 0;
+                this.selectedPatternType = 'interval'; this.highlightRoots = false;
+
+                this.fretboardEl = document.getElementById(fretboardId);
+                this.infoContainerEl = document.getElementById('infoContainer');
+                this.selectedNotesEl = document.getElementById('selectedNotes');
+                this.intervalsDisplayEl = document.getElementById('intervalsDisplay');
+                this.chordNameEl = document.getElementById('chordName');
+                this.currentStudyPatternEl = document.getElementById('currentStudyPattern');
+                this.equivalentPatternsEl = document.getElementById('equivalentPatterns');
+                this.highlightedNotesDisplayEl = document.getElementById('highlightedNotesDisplay');
+                this.tuningSelectEl = document.getElementById('tuningSelect');
+                this.rootNoteSelectEl = document.getElementById('rootNoteSelect');
+                this.patternTypeSelectEl = document.getElementById('patternTypeSelect');
+                this.patternSelectEl = document.getElementById('patternSelect');
+                this.inversionSelectEl = document.getElementById('inversionSelect');
+                this.showPatternBtnEl = document.getElementById('showPatternBtn');
+                this.clearHighlightsBtnEl = document.getElementById('clearHighlightsBtn');
+                this.resetBtnEl = document.getElementById('resetBtn');
+                this.highlightRootsCheckbox = document.getElementById('highlightRootsCheckbox');
+                this.useFlatsCheckbox = document.getElementById('useFlatsCheckbox');
+
+                if (!this.fretboardEl) { console.error(`Fretboard element with ID "${fretboardId}" not found.`); return; }
+                this._populateControls(); this._buildFretboard(); this._bindEvents(); this._updatePatternType();
+                console.log("Diapasón Interactivo Avanzado v3.4 inicializado.");
+            }
+
+            _buildFretboard() {
+                this.fretboardEl.innerHTML = ''; const fragment = document.createDocumentFragment();
+                const fretboardWidth = this.fretboardEl.clientWidth || 900; const nutWidth = 8;
+                const fretWireWidth = 3; const effectiveFretboardWidth = fretboardWidth - nutWidth;
+                for (let f = 0; f <= this.NUM_FRETS; f++) {
+                    const fretLine = document.createElement('div'); fretLine.className = 'fret-line';
+                    const fretPositionRatio = f / this.NUM_FRETS;
+                    const leftPercentage = (fretPositionRatio * effectiveFretboardWidth + nutWidth) / fretboardWidth * 100;
+                    if (f === 0) { fretLine.classList.add('nut'); fretLine.style.left = '0%'; fretLine.style.width = `${nutWidth}px`; }
+                    else { fretLine.style.left = `calc(${leftPercentage}% - ${fretWireWidth / 2}px)`; fretLine.style.width = `${fretWireWidth}px`; }
+                    fragment.appendChild(fretLine);
+                    if (f > 0) {
+                         const prevFretPositionRatio = (f - 1) / this.NUM_FRETS;
+                         const prevFretLeftPercentage = (prevFretPositionRatio * effectiveFretboardWidth + nutWidth) / fretboardWidth * 100;
+                         const fretNumber = document.createElement('div'); fretNumber.className = 'fret-number'; fretNumber.textContent = f.toString();
+                         fretNumber.style.left = `${prevFretLeftPercentage + (leftPercentage - prevFretLeftPercentage) / 2}%`; fragment.appendChild(fretNumber);
+                    }
+                }
+                for (let s = 0; s < this.NUM_STRINGS; s++) {
+                    const stringYPercent = (s / (this.NUM_STRINGS - 1)) * 96 + 2;
+                    const stringLine = document.createElement('div'); stringLine.className = 'string';
+                    stringLine.style.height = `${1 + ((this.NUM_STRINGS - 1 - s) * 0.3)}px`; stringLine.style.top = `${stringYPercent}%`;
+                    fragment.appendChild(stringLine);
+                    const baseNoteValue = this.currentTuning[this.NUM_STRINGS - 1 - s];
+                    for (let f = 0; f <= this.NUM_FRETS; f++) {
+                        const noteValue = (baseNoteValue + f) % 12; const noteName = this._getNoteName(noteValue);
+                        let noteXPercent;
+                        if (f === 0) { noteXPercent = (nutWidth / 2) / fretboardWidth * 100; }
+                        else {
+                            const prevFretRatio = (f - 1) / this.NUM_FRETS; const currFretRatio = f / this.NUM_FRETS;
+                            const fretLeftPercent = (prevFretRatio * effectiveFretboardWidth + nutWidth) / fretboardWidth * 100;
+                            const fretRightPercent = (currFretRatio * effectiveFretboardWidth + nutWidth) / fretboardWidth * 100;
+                            noteXPercent = fretLeftPercent + (fretRightPercent - fretLeftPercent) / 2;
+                        }
+                        fragment.appendChild(this._createNoteAreaElement(s, f, noteName, noteValue, noteXPercent, stringYPercent));
+                    }
+                }
+                const markerFrets = [3, 5, 7, 9, 15]; const doubleMarkerFret = 12;
+                markerFrets.forEach(f => {
+                    if (f > this.NUM_FRETS) return; const fretCenterRatio = (f - 0.5) / this.NUM_FRETS;
+                    const markerXPercent = (fretCenterRatio * effectiveFretboardWidth + nutWidth) / fretboardWidth * 100;
+                    const marker = document.createElement('div'); marker.className = 'fret-marker';
+                    marker.style.left = `${markerXPercent}%`; marker.style.top = `50%`; fragment.appendChild(marker);
+                });
+                if (doubleMarkerFret <= this.NUM_FRETS) {
+                    const fret12CenterRatio = (doubleMarkerFret - 0.5) / this.NUM_FRETS;
+                    const markerX12Percent = (fret12CenterRatio * effectiveFretboardWidth + nutWidth) / fretboardWidth * 100;
+                    const m12a = document.createElement('div'); m12a.className = 'fret-marker'; m12a.style.left = `${markerX12Percent}%`; m12a.style.top = `30%`;
+                    const m12b = document.createElement('div'); m12b.className = 'fret-marker'; m12b.style.left = `${markerX12Percent}%`; m12b.style.top = `70%`;
+                    fragment.appendChild(m12a); fragment.appendChild(m12b);
+                }
+                this.fretboardEl.appendChild(fragment);
+            }
+            _createNoteAreaElement(s, f, note, value, x, y) {
+                const area = document.createElement('div'); area.className = 'note-area';
+                area.dataset.string = s; area.dataset.fret = f; area.dataset.note = note;
+                area.dataset.value = value; area.dataset.id = `${s}-${f}`;
+                area.style.top = `${y}%`; area.style.left = `${x}%`;
+                const display = document.createElement('div'); display.className = 'note-display';
+                display.innerHTML = `<span class="note-name">${note}</span><span class="note-function"></span>`;
+                area.appendChild(display); return area;
+            }
+
+            _populateControls() {
+                this.tuningSelectEl.innerHTML = ''; Object.keys(this.TUNINGS).forEach(name => this.tuningSelectEl.add(new Option(name, name)));
+                this.tuningSelectEl.value = this.currentTuningName;
+                this.rootNoteSelectEl.innerHTML = ''; this._getCurrentNoteNames().forEach(note => this.rootNoteSelectEl.add(new Option(note, note)));
+                this.rootNoteSelectEl.value = this._getNoteName(0);
+                this.patternTypeSelectEl.value = this.selectedPatternType;
+            }
+            _updatePatternSelect() {
+                this.patternSelectEl.innerHTML = ''; this.selectedPatternType = this.patternTypeSelectEl.value;
+                const dictionary = this._getCurrentDictionary();
+                if (this.selectedPatternType !== 'interval') {
+                    const placeholderText = `-- Seleccionar ${this.patternTypeSelectEl.options[this.patternTypeSelectEl.selectedIndex].text} --`;
+                    this.patternSelectEl.add(new Option(placeholderText, ""));
+                }
+                const sortedKeys = Object.keys(dictionary).sort((a, b) => a.localeCompare(b));
+                sortedKeys.forEach(name => this.patternSelectEl.add(new Option(name, name)));
+                if (this.selectedPatternType === 'interval') this.showPatternBtnEl.textContent = 'Mostrar Intervalo';
+                else if (this.selectedPatternType === 'dropVoicing') this.showPatternBtnEl.textContent = 'Mostrar Drop Voicing';
+                else if (this.selectedPatternType === 'chord') this.showPatternBtnEl.textContent = 'Mostrar Voicing Gen.';
+                else this.showPatternBtnEl.textContent = 'Mostrar Patrón';
+            }
+            _updateInversionSelect(numOptions = 0) {
+                const patternType = this.selectedPatternType;
+                const canInvert = (patternType === 'chord' || patternType === 'arpeggio' || patternType === 'dropVoicing');
+                this.inversionSelectEl.innerHTML = '';
+                this.inversionSelectEl.add(new Option((patternType === 'dropVoicing' ? 'Estado Fundamental' : 'Fundamental'), '0'));
+                this.inversionSelectEl.disabled = true;
+                if (canInvert && numOptions > 1) {
+                    const baseLabel = patternType === 'dropVoicing' ? 'Estado' : 'Inv.';
+                    for (let i = 1; i < numOptions; i++) {
+                        const ordinal = i === 1 ? '1er' : i === 2 ? '2do' : i === 3 ? '3er' : `${i}to`;
+                        this.inversionSelectEl.add(new Option(`${ordinal} ${baseLabel}`, i.toString()));
+                    }
+                    this.inversionSelectEl.disabled = false;
+                    this.inversionSelectEl.value = this.currentInversionIndex < numOptions ? this.currentInversionIndex.toString() : '0';
+                    if (this.currentInversionIndex >= numOptions) this.currentInversionIndex = 0;
+                } else {
+                    this.currentInversionIndex = 0; this.inversionSelectEl.value = '0';
+                }
+                const inversionControlGroup = this.inversionSelectEl.closest('.control-group');
+                if (inversionControlGroup) inversionControlGroup.style.visibility = canInvert ? 'visible' : 'hidden';
+            }
+            _updatePatternType() {
+                this.selectedPatternType = this.patternTypeSelectEl.value;
+                this._updatePatternSelect();
+                let numInversionOptions = 0;
+                if (this.selectedPatternType === 'dropVoicing') {
+                    const firstVoicingName = Object.keys(this.dropVoicingDictionary)[0];
+                    if (firstVoicingName && this.dropVoicingDictionary[firstVoicingName]) {
+                        numInversionOptions = Object.keys(this.dropVoicingDictionary[firstVoicingName]).length;
+                    }
+                } else if (this.selectedPatternType === 'arpeggio' || this.selectedPatternType === 'chord') {
+                    numInversionOptions = 0;
+                }
+                this._updateInversionSelect(numInversionOptions); this._clearHighlightsAndPattern();
+            }
+
+            _bindEvents() {
+                this.tuningSelectEl.onchange = () => this._handleTuningChange();
+                this.rootNoteSelectEl.onchange = () => this._handleRootNoteChange();
+                this.patternTypeSelectEl.onchange = () => this._updatePatternType();
+                this.patternSelectEl.onchange = () => this._handlePatternSelectionChange();
+                this.showPatternBtnEl.onclick = () => this._displaySelectedPattern();
+                this.clearHighlightsBtnEl.onclick = () => this._clearHighlightsAndPattern();
+                this.resetBtnEl.onclick = () => this.resetAll();
+                this.inversionSelectEl.onchange = (e) => this._handleInversionChange(e);
+                this.highlightRootsCheckbox.onchange = (e) => this._handleHighlightRootsChange(e);
+                this.useFlatsCheckbox.onchange = (e) => this._handleUseFlatsChange(e);
+                this.fretboardEl.onclick = (event) => this._handleFretboardClick(event);
+            }
+            _handleTuningChange() {
+                this.currentTuningName = this.tuningSelectEl.value; this.currentTuning = this.TUNINGS[this.currentTuningName];
+                this.resetAll();
+            }
+            _handleRootNoteChange() {
+                if (this.currentHighlight) this._displaySelectedPattern(false);
+                if (this.selectedNotesData.length > 0) this._clearChordSelection();
+            }
+            _handlePatternSelectionChange() {
+                const patternName = this.patternSelectEl.value; const dictionary = this._getCurrentDictionary();
+                let numOptionsForInversion = 0;
+                if (patternName && dictionary[patternName]) {
+                    if (this.selectedPatternType === 'dropVoicing') {
+                        const patternData = dictionary[patternName];
+                        if (patternData && typeof patternData === 'object') numOptionsForInversion = Object.keys(patternData).length;
+                    } else if (this.selectedPatternType === 'arpeggio' || this.selectedPatternType === 'chord') {
+                        const baseIntervals = dictionary[patternName];
+                        if (baseIntervals) numOptionsForInversion = baseIntervals.length;
+                    }
+                }
+                this._updateInversionSelect(numOptionsForInversion);
+            }
+            _handleFretboardClick(event) {
+                const targetArea = event.target.closest('.note-area');
+                if (targetArea) { this._clearHighlightsAndPattern(false); this._processNoteSelection(targetArea); }
+            }
+            _handleInversionChange(event) {
+                this.currentInversionIndex = parseInt(event.target.value, 10);
+                if (this.currentHighlight) this._displaySelectedPattern(false);
+            }
+            _handleHighlightRootsChange(event) {
+                this.highlightRoots = event.target.checked;
+                if (this.currentHighlight) this._displaySelectedPattern(false);
+                else {
+                    this._clearHighlightsOnly();
+                    if (this.highlightRoots) {
+                        const rootNoteName = this.rootNoteSelectEl.value; const rootValue = this._getNoteValue(rootNoteName);
+                        this._highlightRootNotes(rootValue);
+                    }
+                }
+            }
+            _handleUseFlatsChange(event) {
+                this.useFlats = event.target.checked; this._updateNoteNamesInDOM();
+                if (this.currentHighlight) this._displaySelectedPattern(false);
+                if (this.selectedNotesData.length > 0) {
+                    this.selectedNotesData.forEach(noteData => { noteData.note = this._getNoteName(noteData.value); });
+                    this._updateChordIdentification();
+                }
+            }
+
+            _processNoteSelection(noteAreaElement) {
+                const noteName = this._getNoteName(parseInt(noteAreaElement.dataset.value));
+                const string = parseInt(noteAreaElement.dataset.string); const fret = parseInt(noteAreaElement.dataset.fret);
+                const noteValue = parseInt(noteAreaElement.dataset.value); const noteId = noteAreaElement.dataset.id;
+                const displayElement = noteAreaElement.querySelector('.note-display');
+                const existingNoteIndex = this.selectedNotesData.findIndex(n => n.id === noteId);
+                if (existingNoteIndex > -1) {
+                    const wasTonic = this.tonicInfo && this.tonicInfo.id === noteId;
+                    this.selectedNotesData.splice(existingNoteIndex, 1);
+                    displayElement.classList.remove('selected', 'tonic');
+                    displayElement.querySelector('.note-name').textContent = noteName; displayElement.querySelector('.note-function').textContent = '';
+                    if (wasTonic) {
+                        this.tonicInfo = null;
+                        if (this.selectedNotesData.length > 0) this._setTonic(this.selectedNotesData[0]);
+                        else { this.identifiedChordInfo = null; this.currentInversionIndex = 0; }
+                    }
+                } else {
+                    const noteData = { id: noteId, note: noteName, value: noteValue, string, fret, element: displayElement, areaElement: noteAreaElement };
+                    this.selectedNotesData.push(noteData); displayElement.classList.add('selected');
+                    if (!this.tonicInfo) this._setTonic(noteData);
+                }
+                this._updateChordIdentification();
+            }
+            _setTonic(noteData) {
+                if (this.tonicInfo && this.tonicInfo.element) {
+                    this.tonicInfo.element.classList.remove('tonic');
+                    this.tonicInfo.element.querySelector('.note-name').textContent = this.tonicInfo.note;
+                    this.tonicInfo.element.querySelector('.note-function').textContent = '';
+                }
+                this.tonicInfo = { note: noteData.note, value: noteData.value, id: noteData.id, element: noteData.element };
+                noteData.element.classList.add('tonic');
+                noteData.element.querySelector('.note-name').textContent = noteData.note; noteData.element.querySelector('.note-function').textContent = 'R';
+                this.selectedNotesData.forEach(n => { if (n.id !== this.tonicInfo.id) this._displayIntervalOnSelectedNote(n.element, n.value, this.tonicInfo.value); });
+            }
+            _displayIntervalOnSelectedNote(displayElement, noteValue, tonicValue) {
+                let intervalSemitones = (noteValue - tonicValue + 12) % 12;
+                const intervalName = this.semitoneIntervalMap[intervalSemitones] || '?';
+                displayElement.querySelector('.note-function').textContent = intervalName;
+            }
+            _updateChordIdentification() {
+                const uniqueNotes = [...new Set(this.selectedNotesData.map(n => n.note))];
+                uniqueNotes.sort((a, b) => (this._getNoteValue(a) - this._getNoteValue(b)));
+                this.selectedNotesEl.textContent = 'Notas seleccionadas: ' + (uniqueNotes.length > 0 ? uniqueNotes.join(', ') : '(Ninguna)');
+                if (this.tonicInfo && this.selectedNotesData.length > 0) {
+                    const intervalValues = new Set(); this.selectedNotesData.forEach(n => intervalValues.add((n.value - this.tonicInfo.value + 12) % 12));
+                    const sortedIntervals = [...intervalValues].sort((a, b) => a - b).map(val => this.semitoneIntervalMap[val] || '?');
+                    this.intervalsDisplayEl.textContent = sortedIntervals.join(', ');
+                    const identifiedResult = this._identifyChord(sortedIntervals);
+                    if (identifiedResult) {
+                        this.chordNameEl.textContent = identifiedResult.name; this.identifiedChordInfo = identifiedResult;
+                        const numNotesForInv = identifiedResult.baseIntervals ? identifiedResult.baseIntervals.length : 0;
+                        const originalPatternType = this.selectedPatternType; this.selectedPatternType = 'chord';
+                        this._updateInversionSelect(numNotesForInv); this.selectedPatternType = originalPatternType;
+                    } else {
+                        this.chordNameEl.textContent = '(Acorde no reconocido)'; this.identifiedChordInfo = null; this._updateInversionSelect(0);
+                    }
+                } else { this._clearChordIdentificationDisplay(); }
+            }
+            _clearChordIdentificationDisplay() {
+                this.selectedNotesEl.textContent = 'Notas seleccionadas: (Ninguna)'; this.intervalsDisplayEl.textContent = '(Ninguno)';
+                this.chordNameEl.textContent = 'N/A'; this.identifiedChordInfo = null; this._updateInversionSelect(0);
+            }
+            _identifyChord(intervals) {
+                if (!this.tonicInfo || intervals.length < 2) return null;
+                const intervalsSet = new Set(intervals); let bestMatch = null; let baseIntervals = null; let matchName = '';
+                for (const [name, chordIntervals] of Object.entries(this.chordDictionary)) {
+                    const requiredIntervalsSet = new Set(chordIntervals);
+                    if (intervalsSet.size === requiredIntervalsSet.size && [...intervalsSet].every(i => requiredIntervalsSet.has(i))) {
+                        matchName = name; bestMatch = `${this.tonicInfo.note} ${name}`; baseIntervals = chordIntervals; break;
+                    }
+                }
+                if (!bestMatch && intervals.length >= 3) {
+                    const sortedDictEntries = Object.entries(this.chordDictionary).sort(([, a], [, b]) => a.length - b.length);
+                    for (const [name, chordIntervals] of sortedDictEntries) {
+                        const requiredIntervalsSet = new Set(chordIntervals);
+                        if (requiredIntervalsSet.size < intervalsSet.size && [...requiredIntervalsSet].every(reqI => intervalsSet.has(reqI))) {
+                            const extraIntervals = [...intervalsSet].filter(int => !requiredIntervalsSet.has(int));
+                            matchName = name; bestMatch = `${this.tonicInfo.note} ${name} (add ${extraIntervals.join(',')})`;
+                            baseIntervals = chordIntervals; break;
+                        }
+                    }
+                }
+                return bestMatch ? { name: bestMatch, rootNote: this.tonicInfo.note, baseIntervals: baseIntervals, baseName: matchName } : null;
+            }
+
+            _displaySelectedPattern(updateInversionControlDueToPatternChange = true) {
+                this._clearChordSelection();
+                const rootNoteName = this.rootNoteSelectEl.value; const patternType = this.patternTypeSelectEl.value;
+                const patternName = this.patternSelectEl.value; const dictionary = this._getCurrentDictionary();
+                const inversionIndex = parseInt(this.inversionSelectEl.value, 10) || 0;
+
+                if (!rootNoteName || !patternName || (patternName && !dictionary[patternName])) { // Added check for patternName in dictionary
+                    this._clearHighlightsAndPattern(); return;
+                }
+                const rootValue = this._getNoteValue(rootNoteName); if (rootValue === -1) return;
+
+                let intervalsToDisplay, baseIntervalsForInfo;
+                if (patternType === 'dropVoicing') {
+                    const dropVoicingEntry = dictionary[patternName];
+                    if (!dropVoicingEntry || typeof dropVoicingEntry !== 'object') { this._clearHighlightsAndPattern(); return; }
+                    const voicingKeys = ['fundamental', 'firstInv', 'secondInv', 'thirdInv'];
+                    const selectedVoicingKey = voicingKeys[inversionIndex];
+                    intervalsToDisplay = dropVoicingEntry[selectedVoicingKey];
+                    baseIntervalsForInfo = intervalsToDisplay; // For Drop Voicing, displayed IS the pattern
+                    if (!intervalsToDisplay) { this._clearHighlightsAndPattern(); return; }
+                    if (updateInversionControlDueToPatternChange) this._updateInversionSelect(Object.keys(dropVoicingEntry).length);
+                } else {
+                    const rawPatternIntervals = dictionary[patternName];
+                    if (!rawPatternIntervals) { this._clearHighlightsAndPattern(); return; }
+                    baseIntervalsForInfo = rawPatternIntervals;
+                    const canInvertTraditional = (patternType === 'chord' || patternType === 'arpeggio');
+                    intervalsToDisplay = canInvertTraditional ? this._getChordInversion(rawPatternIntervals, inversionIndex) : rawPatternIntervals;
+                    if (updateInversionControlDueToPatternChange) this._updateInversionSelect(canInvertTraditional ? rawPatternIntervals.length : 0);
+                }
+
+                const bassInterval = intervalsToDisplay[0];
+                this.currentHighlight = { type: patternType, name: patternName, root: rootNoteName, intervals: intervalsToDisplay, baseIntervals: baseIntervalsForInfo, bassInterval: bassInterval };
+                this.currentInversionIndex = inversionIndex;
+                this._highlightNotesOnFretboard(intervalsToDisplay, rootValue, bassInterval);
+                if (this.highlightRoots) this._highlightRootNotes(rootValue);
+
+                let invText = ""; const numInvOptions = this.inversionSelectEl.options.length;
+                if (numInvOptions > 1 && !this.inversionSelectEl.disabled) invText = this.inversionSelectEl.options[this.inversionSelectEl.selectedIndex].text;
+                this.currentStudyPatternEl.textContent = `Visualización: ${rootNoteName} ${patternName} ${invText}`.trim();
+                this._displayHighlightedNotesInfo(intervalsToDisplay, rootValue); this._displayEquivalentPatterns(patternName);
+            }
+            _getChordInversion(baseIntervals, inversionIndex) {
+                if (inversionIndex === 0 || !baseIntervals || baseIntervals.length < 2) return [...baseIntervals];
+                let inversion = [...baseIntervals];
+                for (let i = 0; i < inversionIndex; i++) { if (inversion.length > 0) inversion.push(inversion.shift()); }
+                return inversion;
+            }
+            _highlightNotesOnFretboard(intervals, rootValue, bassInterval) {
+                this._clearHighlightsOnly(); const targetNotes = new Map(); let bassNoteValue = -1;
+                intervals.forEach(intervalName => {
+                    const semitones = this.intervalSemitoneMap[intervalName];
+                    if (semitones !== undefined) {
+                        const noteValue = (rootValue + semitones) % 12; targetNotes.set(noteValue, intervalName);
+                        if (intervalName === bassInterval) bassNoteValue = noteValue;
+                    } else console.warn(`Intervalo desconocido en patrón: ${intervalName}`);
+                });
+                this._getAllNoteAreaElements().forEach(noteAreaEl => {
+                    const noteValue = parseInt(noteAreaEl.dataset.value); const displayEl = noteAreaEl.querySelector('.note-display');
+                    if (targetNotes.has(noteValue)) {
+                        const intervalName = targetNotes.get(noteValue); displayEl.classList.add('highlight');
+                        displayEl.querySelector('.note-function').textContent = intervalName;
+                        displayEl.querySelector('.note-name').textContent = this._getNoteName(noteValue);
+                        const cleanInterval = intervalName.replace('#', 'a').replace('bb7','bb7').replace('b','b');
+                        displayEl.className = displayEl.className.replace(/interval-[^\s]+/g, '').trim();
+                        displayEl.classList.add(`interval-${cleanInterval}`);
+                        if (noteValue === bassNoteValue) displayEl.classList.add('highlight-bass');
+                    }
+                });
+            }
+            _highlightRootNotes(rootValue) {
+                this._getAllNoteAreaElements().forEach(noteAreaEl => {
+                    const noteValue = parseInt(noteAreaEl.dataset.value); const displayEl = noteAreaEl.querySelector('.note-display');
+                    if (noteValue === rootValue) {
+                        if (!displayEl.classList.contains('highlight-bass')) displayEl.classList.add('highlight-root');
+                        const currentFunction = displayEl.querySelector('.note-function').textContent;
+                        if (['1','8','R',''].includes(currentFunction) || !displayEl.classList.contains('highlight')) {
+                           displayEl.querySelector('.note-function').textContent = 'R';
+                        }
+                    }
+                });
+            }
+
+            _clearHighlightsOnly() {
+                this._getAllNoteAreaElements().forEach(noteAreaEl => {
+                    const displayEl = noteAreaEl.querySelector('.note-display'); const noteValue = parseInt(noteAreaEl.dataset.value);
+                    displayEl.classList.remove('highlight', 'highlight-bass', 'highlight-root');
+                    displayEl.className = displayEl.className.replace(/interval-[^\s]+/g, '').trim();
+                    if (!displayEl.classList.contains('selected')) {
+                        displayEl.querySelector('.note-name').textContent = this._getNoteName(noteValue); displayEl.querySelector('.note-function').textContent = '';
+                    } else if (this.tonicInfo && this.tonicInfo.id === noteAreaEl.dataset.id) {
+                        displayEl.querySelector('.note-name').textContent = this._getNoteName(noteValue); displayEl.querySelector('.note-function').textContent = 'R';
+                    } else if (this.tonicInfo) {
+                        this._displayIntervalOnSelectedNote(displayEl, noteValue, this.tonicInfo.value);
+                        displayEl.querySelector('.note-name').textContent = this._getNoteName(noteValue);
+                    } else { displayEl.querySelector('.note-name').textContent = this._getNoteName(noteValue); displayEl.querySelector('.note-function').textContent = ''; }
+                });
+            }
+            _clearHighlightsAndPattern(clearInfoTexts = true) {
+                this._clearHighlightsOnly(); this.currentHighlight = null;
+                if (clearInfoTexts) {
+                    this.currentStudyPatternEl.textContent = 'Visualización actual: (Ninguna)';
+                    this.equivalentPatternsEl.textContent = 'Equivalencias: (Ninguna)';
+                    this.highlightedNotesDisplayEl.innerHTML = ''; this._updateInversionSelect(0);
+                }
+            }
+            _clearChordSelection() {
+                this.selectedNotesData.forEach(({ element, areaElement }) => {
+                    element.classList.remove('selected', 'tonic');
+                    const noteValue = parseInt(areaElement.dataset.value);
+                    element.querySelector('.note-name').textContent = this._getNoteName(noteValue); element.querySelector('.note-function').textContent = '';
+                });
+                this.selectedNotesData = []; this.tonicInfo = null; this.identifiedChordInfo = null;
+                this.currentInversionIndex = 0; this._clearChordIdentificationDisplay();
+            }
+            resetAll() {
+                this._clearChordSelection(); this._clearHighlightsAndPattern();
+                this.tuningSelectEl.value = 'Standard (EADGBE)'; this.currentTuningName = this.tuningSelectEl.value;
+                this.currentTuning = this.TUNINGS[this.currentTuningName];
+                this.useFlats = false; this.useFlatsCheckbox.checked = false; this._updateNoteNamesInDOM();
+                this.rootNoteSelectEl.value = this._getNoteName(0); this.patternTypeSelectEl.value = 'interval';
+                this.highlightRootsCheckbox.checked = false; this.highlightRoots = false;
+                this._buildFretboard(); this._updatePatternType();
+            }
+
+            _displayHighlightedNotesInfo(intervals, rootValue) {
+                this.highlightedNotesDisplayEl.innerHTML = '';
+                const notesInfo = intervals.map(intervalName => {
+                    const semitones = this.intervalSemitoneMap[intervalName];
+                    if (semitones !== undefined) { const noteValue = (rootValue + semitones) % 12; return { noteName: this._getNoteName(noteValue), intervalName }; }
+                    return null;
+                }).filter(Boolean);
+                notesInfo.forEach(({ noteName, intervalName }) => {
+                    const noteDiv = document.createElement('div'); noteDiv.className = 'highlighted-note';
+                    const cleanInterval = intervalName.replace('#', 'a').replace('bb7','bb7').replace('b','b');
+                    noteDiv.classList.add(`interval-${cleanInterval}`);
+                    const colorIndicator = document.createElement('span'); colorIndicator.className = 'interval-color-indicator';
+                    noteDiv.appendChild(colorIndicator); noteDiv.append(` ${noteName} (${intervalName})`);
+                    this.highlightedNotesDisplayEl.appendChild(noteDiv);
+                });
+            }
+            _displayEquivalentPatterns(patternName) {
+                let basePatternName = patternName;
+                if (this.currentHighlight && this.currentHighlight.baseIntervals) {
+                    for (const [dictName, intervals] of Object.entries(this._getCurrentDictionary())) {
+                        // For dropVoicings, dictionary[dictName] is an object of arrays, not an array directly.
+                        // We need to compare against the first state (e.g., 'fundamental') of a drop voicing.
+                        let comparableIntervals = intervals;
+                        if (this.selectedPatternType === 'dropVoicing' && typeof intervals === 'object' && !Array.isArray(intervals)) {
+                            const firstStateKey = Object.keys(intervals)[0];
+                            comparableIntervals = intervals[firstStateKey];
+                        }
+                        if (JSON.stringify(comparableIntervals) === JSON.stringify(this.currentHighlight.baseIntervals)) {
+                            basePatternName = dictName; break;
+                        }
+                    }
+                }
+                const equivalents = this.equivalentPatterns[basePatternName] || [];
+                this.equivalentPatternsEl.textContent = 'Equivalencias: ' + (equivalents.length > 0 ? equivalents.join(', ') : '(Ninguna)');
+            }
+
+            _getCurrentNoteNames() { return this.useFlats ? this.NOTES_FLAT : this.NOTES_SHARP; }
+            _getNoteName(semitoneValue) { return this._getCurrentNoteNames()[semitoneValue % 12]; }
+            _getNoteValue(noteName) {
+                let index = this.NOTES_SHARP.indexOf(noteName); if (index === -1) index = this.NOTES_FLAT.indexOf(noteName); return index;
+            }
+            _updateNoteNamesInDOM() {
+                this._getAllNoteAreaElements().forEach(area => {
+                    const value = parseInt(area.dataset.value); const newName = this._getNoteName(value);
+                    area.dataset.note = newName; area.querySelector('.note-name').textContent = newName;
+                });
+                const currentRootNoteValue = this._getNoteValue(this.rootNoteSelectEl.value);
+                this.rootNoteSelectEl.innerHTML = ''; this._getCurrentNoteNames().forEach(note => this.rootNoteSelectEl.add(new Option(note, note)));
+                this.rootNoteSelectEl.value = this._getNoteName(currentRootNoteValue);
+                if (this.selectedNotesData.length > 0) {
+                    this.selectedNotesData.forEach(noteData => { noteData.note = this._getNoteName(noteData.value); });
+                    if (this.tonicInfo) this.tonicInfo.note = this._getNoteName(this.tonicInfo.value);
+                    this._updateChordIdentification();
+                }
+            }
+            _getCurrentDictionary() {
+                switch(this.selectedPatternType) {
+                    case 'interval': return this.intervalDictionary; case 'scale': return this.scaleDictionary;
+                    case 'arpeggio': return this.arpeggioDictionary; case 'chord': return this.chordDictionary;
+                    case 'dropVoicing': return this.dropVoicingDictionary;
+                    default: console.error("Tipo de patrón desconocido:", this.selectedPatternType); return {};
+                }
+            }
+            _getAllNoteAreaElements() { return this.fretboardEl.querySelectorAll('.note-area'); }
+
+        } // Fin de la clase Diapason
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const diapason = new Diapason('fretboard');
+                // window.diapason = diapason; // Uncomment for debugging
+            } catch (error) {
+                console.error("Error al inicializar el diapasón:", error);
+                const container = document.querySelector('.container');
+                if(container) container.innerHTML = '<h1 style="color: red;">Error al cargar la aplicación</h1><p>Por favor, revisa la consola del navegador para más detalles.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
