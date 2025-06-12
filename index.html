@@ -1,59 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gipsyjazz Mástil de Estudio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script type="module" src="app.js"></script>
-</head>
-<body>
-
+  </head>
+  <body>
     <header>
-        <h1>Gipsyjazz Mástil de Estudio</h1>
+      <h1>Gipsyjazz Mástil de Estudio</h1>
     </header>
 
     <main>
-        <div class="controls">
-            <div class="control-group">
-                <label for="root-note-select">Tónica:</label>
-                <select id="root-note-select">
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="F#">F#</option>
-                    <option value="G">G</option>
-                    <option value="G#">G#</option>
-                    <option value="A">A</option>
-                    <option value="A#">A#</option>
-                    <option value="B">B</option>
-                    <option value="C" selected>C</option>
-                    <option value="C#">C#</option>
-                    <option value="D">D</option>
-                    <option value="D#">D#</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label for="type-select">Tipo:</label>
-                <select id="type-select">
-                    <option value="scales">Escalas</option>
-                    <option value="chords">Acordes</option>
-                    <option value="arpeggios">Arpegios</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label for="name-select">Nombre:</label>
-                <select id="name-select">
-                    <!-- Opciones se cargarán dinámicamente con JS -->
-                </select>
-            </div>
+      <div class="controls">
+        <div class="control-group">
+          <label for="root-note-select">Tónica:</label>
+          <select id="root-note-select">
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="F#">F#</option>
+            <option value="G">G</option>
+            <option value="G#">G#</option>
+            <option value="A">A</option>
+            <option value="A#">A#</option>
+            <option value="B">B</option>
+            <option value="C" selected>C</option>
+            <option value="C#">C#</option>
+            <option value="D">D</option>
+            <option value="D#">D#</option>
+          </select>
         </div>
 
-        <div id="fretboard-container">
-            <!-- El mástil se generará aquí con JavaScript -->
+        <div class="control-group">
+          <label for="type-select">Tipo:</label>
+          <select id="type-select">
+            <option value="scales">Escalas</option>
+            <option value="chords">Acordes</option>
+            <option value="arpeggios">Arpegios</option>
+          </select>
         </div>
+
+        <div class="control-group">
+          <label for="name-select">Nombre:</label>
+          <select id="name-select">
+            <!-- Opciones se cargarán dinámicamente con JS -->
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>&nbsp;</label>
+          <button id="toggle-sound">Sonido On</button>
+        </div>
+      </div>
+
+      <div id="fretboard-container">
+        <!-- El mástil se generará aquí con JavaScript -->
+      </div>
     </main>
-
-</body>
+  </body>
 </html>
