@@ -1,0 +1,19 @@
+{
+  "name": "gipsyjazz",
+  "version": "1.0.0",
+  "description": "Mastil de estudio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.5.3"
+  }
+}
