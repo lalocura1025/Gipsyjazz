@@ -1,243 +1,271 @@
-/* --- 
-    Hoja de Estilos para Gipsyjazz Mástil de Estudio 
---- */
+/* =================================================================== */
+/*           HOJA DE ESTILOS PROFESIONAL PARA MÁSTIL INTERACTIVO         */
+/* =================================================================== */
 
-/* ------------------------------------------- */
-/* 1. VARIABLES DE DISEÑO (PALETA DE COLORES)
-/* ------------------------------------------- */
-/* Usar variables hace que sea muy fácil cambiar el tema de la aplicación. */
+
+/* =================================================================== */
+/* 1. IMPORTACIÓN DE FUENTES Y VARIABLES GLOBALES (SISTEMA DE DISEÑO)  */
+/* =================================================================== */
+/* Almacenar colores y fuentes en variables nos permite un control
+   total sobre el tema del sitio desde un único lugar. Es una práctica
+   de desarrollo frontend de alto nivel. */
+
 :root {
-    --color-background: #1d2227; /* Fondo principal oscuro */
-    --color-panel: #2c343c;      /* Fondo de los paneles y controles */
-    --color-text: #e1e1e1;        /* Color de texto principal */
-    --color-text-label: #a0a0a0; /* Color para las etiquetas (labels) */
-    --color-primary: #5fa8d3;    /* Color de acento principal (azul) */
-    --color-border: #444f5a;     /* Color para bordes sutiles */
+  /* Paleta de Colores */
+  --color-background-deep: #121417;
+  --color-background: #1c1f24;
+  --color-surface: #2a2e34;
+  --color-primary: #00aeff;
+  --color-primary-light: #6ee2ff;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #a8b2c1;
+  --color-border: #3c424d;
 
-    /* Variables para el Mástil */
-    --fretboard-wood: #6b4a3a;   /* Color de la madera del mástil */
-    --fret-wire: #b0b0b0;         /* Color de los trastes metálicos */
-    --nut-color: #f1e4d2;         /* Color de la cejuela */
-    --inlay-dot: rgba(220, 220, 220, 0.5); /* Color de los puntos guía */
+  /* Paleta del Mástil */
+  --color-fretboard-wood: #5a3e2b;
+  --color-fret-wire: #9aabaf;
+  --color-fret-inlay: #d1c8b8;
+  --color-string: #d0d0d0;
+  --color-nut: #e0ddd5;
 
-    /* Variables para las Notas */
-    --note-bg: #e57373;          /* Fondo para notas normales (rojo) */
-    --note-root-bg: #ffc107;     /* Fondo para la nota tónica (amarillo) */
-    --note-text: #1a1a1a;         /* Color del texto dentro de la nota */
-    --note-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad a la nota */
+  /* Paleta de Notas */
+  --color-note-root-bg: #ffc107; /* Un amarillo dorado para la tónica */
+  --color-note-root-text: #111;
+  --color-note-other-bg: #00aeff; /* El azul primario para las demás notas */
+  --color-note-other-text: #fff;
+
+  /* Tipografía */
+  --font-main: 'Poppins', sans-serif;
 }
 
 
-/* ------------------------------------------- */
-/* 2. ESTILOS GENERALES Y LAYOUT
-/* ------------------------------------------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* =================================================================== */
+/* 2. RESETEO GLOBAL Y ESTILOS BASE DEL BODY                           */
+/* =================================================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-text);
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-}
-
-.guitar-app-container {
-    width: 100%;
-    max-width: 1300px;
-    background-color: var(--color-panel);
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-main);
+  background-color: var(--color-background-deep);
+  color: var(--color-text-primary);
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 
-/* ------------------------------------------- */
-/* 3. ENCABEZADO Y CONTROLES
-/* ------------------------------------------- */
-.app-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--color-border);
+/* =================================================================== */
+/* 3. LAYOUT PRINCIPAL Y CONTROLES                                     */
+/* =================================================================== */
+.master-container {
+  width: 100%;
+  max-width: 1400px;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
-.app-header h1 {
-    font-weight: 300;
-    letter-spacing: 2px;
-    color: var(--color-primary);
+.control-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.controls-panel {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 2rem;
-    margin-bottom: 2.5rem;
+.control-header h1 {
+  font-weight: 600;
+  font-size: 2.25rem;
+  color: var(--color-text-primary);
 }
 
-.control-group {
-    display: flex;
-    flex-direction: column;
+.control-header h2 {
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-top: 0.25rem;
+  margin-bottom: 2rem;
+  min-height: 2.25rem; /* Evita que el layout salte al cambiar el texto */
+}
+
+.controls-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem 2rem;
 }
 
 .control-group label {
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-text-label);
-    text-transform: uppercase;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+  text-align: left;
 }
 
 .control-group select {
-    /* Reseteo de apariencia para un look personalizado */
-    -webkit-appearance: none;
-    appearance: none;
-    
-    /* Estilos personalizados */
-    background-color: var(--color-background);
-    color: var(--color-text);
-    padding: 0.7rem 1.2rem;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
-
-    /* Flecha personalizada para el dropdown */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a0a0a0' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.8rem center;
-    padding-right: 2.5rem; /* Espacio para la flecha */
+  appearance: none; /* Quita el estilo por defecto del navegador */
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-family: inherit;
+  font-size: 1rem;
+  min-width: 200px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  
+  /* Flecha personalizada usando un SVG en línea */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a8b2c1' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
 }
 
 .control-group select:hover {
-    border-color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: #31363f;
 }
 
 .control-group select:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(95, 168, 211, 0.3);
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 174, 255, 0.2);
 }
 
 
-/* ------------------------------------------- */
-/* 4. MÁSTIL DE LA GUITARRA (FRETBOARD)
-/* ------------------------------------------- */
-#fretboard-container {
-    overflow-x: auto; /* Permite scroll horizontal en móviles */
-    padding: 1rem 0;
-    /* Estilo para la barra de scroll */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) var(--color-background);
+/* =================================================================== */
+/* 4. ÁREA DEL MÁSTIL Y SU ESTRUCTURA GRID                             */
+/* =================================================================== */
+.fretboard-area {
+  margin-top: 2rem;
+  overflow-x: auto; /* La clave para la responsividad del mástil */
+  
+  /* Estilo sutil para la barra de scroll */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-background);
+}
+.fretboard-area::-webkit-scrollbar { height: 8px; }
+.fretboard-area::-webkit-scrollbar-track { background: var(--color-background); }
+.frotboard-area::-webkit-scrollbar-thumb { background-color: var(--color-border); border-radius: 4px; }
+
+/* Contenedor principal de la grid del mástil */
+#fretboard {
+  display: grid;
+  /* Definimos las filas (6 cuerdas) y columnas (cejuela + trastes) */
+  grid-template-rows: repeat(6, 45px); /* 6 cuerdas de 45px de alto */
+  /* 1 columna para las cuerdas al aire + 24 trastes */
+  grid-template-columns: 60px repeat(24, minmax(70px, 1fr)); 
+  background-color: var(--color-fretboard-wood);
+  /* Un gradiente sutil para darle textura de madera */
+  background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 100% 45px; /* Alinea el gradiente con las cuerdas */
+  min-width: 2000px; /* Evita que los trastes se colapsen */
+  border-radius: 8px;
+  position: relative; /* Para posicionar las cuerdas visuales */
 }
 
-.fretboard {
-    display: grid;
-    /* Cejuela (70px) + 22 trastes */
-    grid-template-columns: 70px repeat(22, minmax(65px, 1fr)); 
-    gap: 2px;
-    background-color: var(--fretboard-wood);
-    border: 4px solid #111;
-    border-radius: 8px;
-    min-width: 1400px; /* Asegura que los trastes no se aplasten */
-    padding: 12px 0;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+
+/* =================================================================== */
+/* 5. DETALLES VISUALES DEL MÁSTIL (TRASTES, CUERDAS, INLAYS)         */
+/* =================================================================== */
+/* Celda genérica de la grid (tanto cejuela como trastes) */
+.fret-cell {
+  position: relative; /* Contexto para posicionar las notas */
+  display: grid;
+  place-items: center;
+  border-right: 2px solid var(--color-fret-wire); /* El alambre del traste */
+  border-top: 1px solid var(--color-string); /* La cuerda de la guitarra */
 }
 
-/* Las cuerdas son contenedores virtuales para la grid */
-.string {
-    display: contents;
+/* Última fila no necesita cuerda superior */
+.fret-cell[data-string="5"] {
+  border-bottom: 1px solid var(--color-string);
 }
 
-/* Cada celda es un traste en una cuerda */
-.fret {
-    position: relative;
-    border-right: 4px solid var(--fret-wire);
-    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent 30%);
+/* Cejuela (columna 0) */
+.fret-cell:first-child {
+  border-right-width: 8px; /* Cejuela más gruesa */
+  border-right-color: var(--color-nut);
 }
 
-/* Estilo para la cejuela (traste 0) */
-.fret:first-child {
-    background: var(--nut-color);
-    border-right: 10px solid #3a2e25;
-}
-
-/* Puntos guía (inlays) */
+/* Inlays (puntos guía) */
 .fret-inlay {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background-color: var(--inlay-dot);
-    border-radius: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  background-color: var(--color-fret-inlay);
+  opacity: 0.6;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
 }
 
-.inlay-single { 
-    top: 50%; 
-    transform: translate(-50%, -50%); 
-}
-.inlay-double-top { top: 25%; }
-.inlay-double-bottom { bottom: 25%; }
-
-
-/* ------------------------------------------- */
-/* 5. NOTAS INTERACTIVAS
-/* ------------------------------------------- */
-.note {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: var(--note-bg);
-    color: var(--note-text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-    z-index: 10;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    box-shadow: var(--note-shadow);
-    cursor: pointer;
-    transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.note:hover {
-    transform: translate(-50%, -50%) scale(1.15);
-    z-index: 20;
-}
-
-/* Estilo especial para la nota tónica */
-.note.root-note {
-    background-color: var(--note-root-bg);
+/* Celda para las notas de las cuerdas al aire (fuera de la grid de trastes) */
+.open-string-label {
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
 }
 
 
-/* ------------------------------------------- */
-/* 6. RESPONSIVE DESIGN
-/* ------------------------------------------- */
+/* =================================================================== */
+/* 6. MARCADORES DE NOTAS                                              */
+/* =================================================================== */
+.note-marker {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-note-other-text);
+  background-color: var(--color-note-other-bg);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  /* Animación sutil al aparecer */
+  transform: scale(0.8);
+  opacity: 0;
+  animation: pop-in 0.3s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Estilo específico para la nota tónica (Root Note) */
+.note-marker.root {
+  background-color: var(--color-note-root-bg);
+  color: var(--color-note-root-text);
+  transform: scale(1.1); /* La hacemos un poco más grande */
+}
+
+@keyframes pop-in {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =================================================================== */
+/* 7. MEDIA QUERIES PARA RESPONSIVIDAD                                 */
+/* =================================================================== */
 @media (max-width: 768px) {
-    body {
-        padding: 0;
-    }
-    .guitar-app-container {
-        border-radius: 0;
-        padding: 1rem;
-        min-height: 100vh;
-    }
-    .controls-panel {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1.2rem;
-    }
+  body {
+    padding: 1rem 0;
+  }
+  .master-container {
+    padding: 1.5rem 1rem;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  .controls-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .control-group select {
+    min-width: 100%;
+  }
 }
