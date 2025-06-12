@@ -1,16 +1,36 @@
-/* --- Reseteo y Variables --- */
+/* --- 
+    Hoja de Estilos para Gipsyjazz Mástil de Estudio 
+--- */
+
+/* ------------------------------------------- */
+/* 1. VARIABLES DE DISEÑO (PALETA DE COLORES)
+/* ------------------------------------------- */
+/* Usar variables hace que sea muy fácil cambiar el tema de la aplicación. */
 :root {
-    --bg-color: #2c3e50;
-    --text-color: #ecf0f1;
-    --primary-color: #3498db;
-    --fretboard-wood: #6d4c41;
-    --fret-wire: #bdc3c7;
-    --note-bg: #e74c3c;
-    --note-root-bg: #f1c40f;
-    --note-text: #2c3e50;
-    --dot-marker: #a9a9a9;
+    --color-background: #1d2227; /* Fondo principal oscuro */
+    --color-panel: #2c343c;      /* Fondo de los paneles y controles */
+    --color-text: #e1e1e1;        /* Color de texto principal */
+    --color-text-label: #a0a0a0; /* Color para las etiquetas (labels) */
+    --color-primary: #5fa8d3;    /* Color de acento principal (azul) */
+    --color-border: #444f5a;     /* Color para bordes sutiles */
+
+    /* Variables para el Mástil */
+    --fretboard-wood: #6b4a3a;   /* Color de la madera del mástil */
+    --fret-wire: #b0b0b0;         /* Color de los trastes metálicos */
+    --nut-color: #f1e4d2;         /* Color de la cejuela */
+    --inlay-dot: rgba(220, 220, 220, 0.5); /* Color de los puntos guía */
+
+    /* Variables para las Notas */
+    --note-bg: #e57373;          /* Fondo para notas normales (rojo) */
+    --note-root-bg: #ffc107;     /* Fondo para la nota tónica (amarillo) */
+    --note-text: #1a1a1a;         /* Color del texto dentro de la nota */
+    --note-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad a la nota */
 }
 
+
+/* ------------------------------------------- */
+/* 2. ESTILOS GENERALES Y LAYOUT
+/* ------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -18,129 +38,165 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* --- Layout Principal --- */
-header {
-    text-align: center;
-    padding: 1.5rem 1rem;
-    border-bottom: 2px solid var(--primary-color);
-}
-
-main {
-    padding: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* --- Controles --- */
-.controls {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.guitar-app-container {
+    width: 100%;
+    max-width: 1300px;
+    background-color: var(--color-panel);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ------------------------------------------- */
+/* 3. ENCABEZADO Y CONTROLES
+/* ------------------------------------------- */
+.app-header {
+    text-align: center;
     margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.app-header h1 {
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--color-primary);
+}
+
+.controls-panel {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .control-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-label {
+.control-group label {
+    font-size: 0.85rem;
     margin-bottom: 0.5rem;
-    font-weight: bold;
+    color: var(--color-text-label);
+    text-transform: uppercase;
 }
 
-select {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid var(--fret-wire);
-    background-color: #34495e;
-    color: var(--text-color);
+.control-group select {
+    /* Reseteo de apariencia para un look personalizado */
+    -webkit-appearance: none;
+    appearance: none;
+    
+    /* Estilos personalizados */
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 0.7rem 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    /* Flecha personalizada para el dropdown */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a0a0a0' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    padding-right: 2.5rem; /* Espacio para la flecha */
 }
 
-/* --- Mástil (Fretboard) --- */
+.control-group select:hover {
+    border-color: var(--color-primary);
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(95, 168, 211, 0.3);
+}
+
+
+/* ------------------------------------------- */
+/* 4. MÁSTIL DE LA GUITARRA (FRETBOARD)
+/* ------------------------------------------- */
 #fretboard-container {
     overflow-x: auto; /* Permite scroll horizontal en móviles */
     padding: 1rem 0;
+    /* Estilo para la barra de scroll */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-background);
 }
 
 .fretboard {
     display: grid;
-    grid-template-columns: 50px repeat(15, 1fr); /* Cejuela + 15 trastes */
+    /* Cejuela (70px) + 22 trastes */
+    grid-template-columns: 70px repeat(22, minmax(65px, 1fr)); 
     gap: 2px;
     background-color: var(--fretboard-wood);
-    border: 3px solid #000;
-    border-radius: 5px;
-    min-width: 900px; /* Evita que los trastes se aplasten demasiado */
+    border: 4px solid #111;
+    border-radius: 8px;
+    min-width: 1400px; /* Asegura que los trastes no se aplasten */
+    padding: 12px 0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
 }
 
+/* Las cuerdas son contenedores virtuales para la grid */
 .string {
-    display: contents; /* Permite que los hijos se posicionen en la grid del padre */
+    display: contents;
 }
 
+/* Cada celda es un traste en una cuerda */
 .fret {
     position: relative;
-    padding: 1rem 0;
-    border-right: 2px solid var(--fret-wire);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-right: 4px solid var(--fret-wire);
+    background: linear-gradient(to right, rgba(0,0,0,0.1), transparent 30%);
 }
 
-/* Cejuela */
+/* Estilo para la cejuela (traste 0) */
 .fret:first-child {
-    background-color: #eee;
-    border-right: 5px solid #333;
+    background: var(--nut-color);
+    border-right: 10px solid #3a2e25;
 }
 
-/* Marcadores de posición (inlays) */
-.fret[data-fret="3"]::after,
-.fret[data-fret="5"]::after,
-.fret[data-fret="7"]::after,
-.fret[data-fret="9"]::after {
-    content: '';
+/* Puntos guía (inlays) */
+.fret-inlay {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: var(--dot-marker);
+    width: 18px;
+    height: 18px;
+    background-color: var(--inlay-dot);
     border-radius: 50%;
-    /* Posicionado entre la 3ª y 4ª cuerda (G y D) */
-    top: calc(50% * 2.5); 
     left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.7;
+    transform: translateX(-50%);
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
 }
 
-.fret[data-fret="12"]::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: var(--dot-marker);
-    border-radius: 50%;
-    opacity: 0.7;
-    /* Doble punto */
-    top: calc(50% * 1.5); 
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 32px 0 var(--dot-marker);
+.inlay-single { 
+    top: 50%; 
+    transform: translate(-50%, -50%); 
 }
+.inlay-double-top { top: 25%; }
+.inlay-double-bottom { bottom: 25%; }
 
 
-/* --- Notas --- */
+/* ------------------------------------------- */
+/* 5. NOTAS INTERACTIVAS
+/* ------------------------------------------- */
 .note {
     position: absolute;
-    width: 28px;
-    height: 28px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background-color: var(--note-bg);
     color: var(--note-text);
@@ -148,24 +204,40 @@ select {
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     z-index: 10;
-    transform: translateY(-50%);
-    border: 2px solid rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    box-shadow: var(--note-shadow);
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.note:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+    z-index: 20;
+}
+
+/* Estilo especial para la nota tónica */
 .note.root-note {
     background-color: var(--note-root-bg);
 }
 
-/* --- Responsive --- */
+
+/* ------------------------------------------- */
+/* 6. RESPONSIVE DESIGN
+/* ------------------------------------------- */
 @media (max-width: 768px) {
-    .controls {
+    body {
+        padding: 0;
+    }
+    .guitar-app-container {
+        border-radius: 0;
+        padding: 1rem;
+        min-height: 100vh;
+    }
+    .controls-panel {
         flex-direction: column;
         align-items: stretch;
-        gap: 1rem;
-    }
-    select {
-        width: 100%;
+        gap: 1.2rem;
     }
 }
