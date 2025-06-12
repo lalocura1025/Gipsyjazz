@@ -1,271 +1,644 @@
-/* =================================================================== */
-/*           HOJA DE ESTILOS PROFESIONAL PARA MÁSTIL INTERACTIVO         */
-/* =================================================================== */
-
-
-/* =================================================================== */
-/* 1. IMPORTACIÓN DE FUENTES Y VARIABLES GLOBALES (SISTEMA DE DISEÑO)  */
-/* =================================================================== */
-/* Almacenar colores y fuentes en variables nos permite un control
-   total sobre el tema del sitio desde un único lugar. Es una práctica
-   de desarrollo frontend de alto nivel. */
-
+/* --- Base & Layout --- */
 :root {
-  /* Paleta de Colores */
-  --color-background-deep: #121417;
-  --color-background: #1c1f24;
-  --color-surface: #2a2e34;
-  --color-primary: #00aeff;
-  --color-primary-light: #6ee2ff;
-  --color-text-primary: #f0f0f0;
-  --color-text-secondary: #a8b2c1;
-  --color-border: #3c424d;
+  /* Colores principales */
+  --clr-primary: #3498db; /* Azul */
+  --clr-secondary: #2ecc71; /* Verde */
+  --clr-accent: #e74c3c; /* Rojo */
+  --clr-warning: #f1c40f; /* Amarillo */
+  --clr-purple: #9b59b6; /* Púrpura */
+  --clr-orange: #e67e22; /* Naranja */
 
-  /* Paleta del Mástil */
-  --color-fretboard-wood: #5a3e2b;
-  --color-fret-wire: #9aabaf;
-  --color-fret-inlay: #d1c8b8;
-  --color-string: #d0d0d0;
-  --color-nut: #e0ddd5;
+  /* Tonos neutros */
+  --clr-dark: #2c3e50;
+  --clr-light: #ecf0f1;
+  --clr-grey: #bdc3c7;
+  --clr-grey-dark: #7f8c8d;
+  --clr-white: #ffffff;
+  --clr-black: #000000;
 
-  /* Paleta de Notas */
-  --color-note-root-bg: #ffc107; /* Un amarillo dorado para la tónica */
-  --color-note-root-text: #111;
-  --color-note-other-bg: #00aeff; /* El azul primario para las demás notas */
-  --color-note-other-text: #fff;
+  /* Mástil */
+  --clr-fretboard: #e3c4a1; /* Madera más clara */
+  --clr-fretboard-border: #6b4226; /* Marrón oscuro borde */
+  --clr-fret: #a0a0a0; /* Gris medio para trastes */
+  --clr-nut: #4d2e1a; /* Marrón muy oscuro para cejuela */
+  --clr-string: #666; /* Gris oscuro para cuerdas */
+  --clr-fret-marker: #4d2e1a; /* Marrón muy oscuro para puntos */
 
-  /* Tipografía */
-  --font-main: 'Poppins', sans-serif;
+  /* Notas e Intervalos */
+  --clr-note-text: var(--clr-white);
+  --clr-note-text-dark: var(--clr-dark);
+  --clr-note-selected-bg: var(--clr-dark);
+  --clr-note-selected-text: var(--clr-white);
+
+  /* Colores específicos de intervalos */
+  --clr-interval-root: var(--clr-accent); /* Rojo */
+  --clr-interval-m2: var(--clr-grey-dark);
+  --clr-interval-M2: var(--clr-grey);
+  --clr-interval-m3: var(--clr-primary); /* Azul */
+  --clr-interval-M3: var(--clr-primary); /* Azul */
+  --clr-interval-P4: var(--clr-orange); /* Naranja */
+  --clr-interval-TT: var(--clr-purple); /* Púrpura (Tritono) */
+  --clr-interval-P5: var(--clr-secondary); /* Verde */
+  --clr-interval-m6: var(--clr-grey);
+  --clr-interval-M6: var(--clr-purple); /* Púrpura */
+  --clr-interval-m7: var(--clr-warning); /* Amarillo */
+  --clr-interval-M7: var(--clr-warning); /* Amarillo */
+  --clr-interval-P8: var(--clr-interval-root); /* Rojo (Octava) */
+  --clr-interval-other: var(--clr-grey-dark); /* Gris oscuro por defecto */
+
+  /* Colores para texto sobre fondos claros/oscuros */
+  --clr-text-on-light: var(--clr-note-text-dark);
+  --clr-text-on-dark: var(--clr-note-text);
+  --clr-text-on-yellow: var(
+    --clr-note-text-dark
+  ); /* Texto oscuro sobre amarillo */
 }
 
-
-/* =================================================================== */
-/* 2. RESETEO GLOBAL Y ESTILOS BASE DEL BODY                           */
-/* =================================================================== */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
-  font-family: var(--font-main);
-  background-color: var(--color-background-deep);
-  color: var(--color-text-primary);
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  padding: 2rem;
+  font-family:
+    'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font */
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 15px;
+  color: var(--clr-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* Improved font rendering */
+  -moz-osx-font-smoothing: grayscale;
 }
-
-
-/* =================================================================== */
-/* 3. LAYOUT PRINCIPAL Y CONTROLES                                     */
-/* =================================================================== */
-.master-container {
-  width: 100%;
-  max-width: 1400px;
-  background-color: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+.container {
+  max-width: 1200px;
+  margin: 15px auto;
+  background-color: var(--clr-white);
+  padding: 25px; /* Increased padding */
+  border-radius: 12px; /* Softer radius */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07); /* Softer shadow */
 }
-
-.control-header {
+h1,
+h2 {
   text-align: center;
-  margin-bottom: 2rem;
+  color: var(--clr-dark);
+  margin-bottom: 1em;
 }
-
-.control-header h1 {
+h1 {
+  font-size: 2em;
+  font-weight: 700;
+} /* Bolder H1 */
+h2 {
+  font-size: 1.4em;
+  margin-top: 1.5em;
   font-weight: 600;
-  font-size: 2.25rem;
-  color: var(--color-text-primary);
+}
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0; /* Lighter hr */
+  margin: 35px 0; /* Increased margin */
 }
 
-.control-header h2 {
-  font-weight: 300;
-  font-size: 1.5rem;
-  color: var(--color-primary);
-  margin-top: 0.25rem;
-  margin-bottom: 2rem;
-  min-height: 2.25rem; /* Evita que el layout salte al cambiar el texto */
+/* --- Controls --- */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(160px, 1fr)
+  ); /* Slightly wider min for controls */
+  gap: 18px 22px; /* Increased gap */
+  margin-bottom: 35px;
+  padding: 25px;
+  background-color: var(--clr-light);
+  border-radius: 8px; /* Consistent radius */
+  border: 1px solid #dde2e7; /* Lighter border */
 }
-
-.controls-wrapper {
+.control-group {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+}
+.control-group.checkbox-group {
+  align-items: center;
   justify-content: center;
-  gap: 1.5rem 2rem;
+  padding-top: 1.5em;
+  min-height: 42px; /* Adjusted height */
 }
-
-.control-group label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  margin-bottom: 0.5rem;
-  text-align: left;
-}
-
-.control-group select {
-  appearance: none; /* Quita el estilo por defecto del navegador */
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 0.8rem 1.2rem;
-  font-family: inherit;
-  font-size: 1rem;
-  min-width: 200px;
+.control-group.checkbox-group label {
+  margin-bottom: 0;
+  margin-left: 8px; /* Increased margin */
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  
-  /* Flecha personalizada usando un SVG en línea */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a8b2c1' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
+  font-size: 0.9em; /* Consistent font size */
 }
-
-.control-group select:hover {
-  border-color: var(--color-primary);
-  background-color: #31363f;
+.controls label:not(.checkbox-label) {
+  font-size: 0.88em; /* Slightly larger */
+  margin-bottom: 6px;
+  font-weight: 600; /* Bolder label */
+  color: var(--clr-dark);
+  text-align: center;
+  display: block;
 }
-
-.control-group select:focus {
+.controls select,
+.controls button {
+  padding: 10px 14px; /* Increased padding */
+  border: 1px solid var(--clr-grey);
+  border-radius: 6px; /* Softer radius */
+  background-color: var(--clr-white);
+  cursor: pointer;
+  font-size: 0.95em; /* Slightly larger font */
+  text-align: center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 42px; /* Increased height */
+  width: 100%;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.controls select:focus,
+.controls button:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(0, 174, 255, 0.2);
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+.controls select {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2334495E%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%; /* Adjusted position */
+  background-size: 0.7em auto; /* Adjusted size */
+  padding-right: 35px; /* Increased padding for arrow */
+  text-align-last: center;
+}
+.controls button {
+  background-image: linear-gradient(
+    to bottom,
+    var(--clr-primary) 0%,
+    #2a80b3 100%
+  ); /* Subtle gradient */
+  color: white;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.2s,
+    transform 0.1s,
+    box-shadow 0.2s;
+}
+.controls button:hover {
+  background-image: linear-gradient(
+    to bottom,
+    #3ea4e0 0%,
+    var(--clr-primary) 100%
+  );
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+.controls button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.controls button#resetBtn {
+  background-image: linear-gradient(
+    to bottom,
+    var(--clr-accent) 0%,
+    #c0392b 100%
+  );
+}
+.controls button#resetBtn:hover {
+  background-image: linear-gradient(
+    to bottom,
+    #e95c4e 0%,
+    var(--clr-accent) 100%
+  );
 }
 
-
-/* =================================================================== */
-/* 4. ÁREA DEL MÁSTIL Y SU ESTRUCTURA GRID                             */
-/* =================================================================== */
-.fretboard-area {
-  margin-top: 2rem;
-  overflow-x: auto; /* La clave para la responsividad del mástil */
-  
-  /* Estilo sutil para la barra de scroll */
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border) var(--color-background);
+.controls button#clearHighlightsBtn {
+  background-image: linear-gradient(
+    to bottom,
+    var(--clr-dark) 0%,
+    #1e2b37 100%
+  );
 }
-.fretboard-area::-webkit-scrollbar { height: 8px; }
-.fretboard-area::-webkit-scrollbar-track { background: var(--color-background); }
-.frotboard-area::-webkit-scrollbar-thumb { background-color: var(--color-border); border-radius: 4px; }
-
-/* Contenedor principal de la grid del mástil */
-#fretboard {
-  display: grid;
-  /* Definimos las filas (6 cuerdas) y columnas (cejuela + trastes) */
-  grid-template-rows: repeat(6, 45px); /* 6 cuerdas de 45px de alto */
-  /* 1 columna para las cuerdas al aire + 24 trastes */
-  grid-template-columns: 60px repeat(24, minmax(70px, 1fr)); 
-  background-color: var(--color-fretboard-wood);
-  /* Un gradiente sutil para darle textura de madera */
-  background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
-  background-size: 100% 45px; /* Alinea el gradiente con las cuerdas */
-  min-width: 2000px; /* Evita que los trastes se colapsen */
-  border-radius: 8px;
-  position: relative; /* Para posicionar las cuerdas visuales */
+.controls button#clearHighlightsBtn:hover {
+  background-image: linear-gradient(
+    to bottom,
+    #4a6179 0%,
+    var(--clr-dark) 100%
+  );
 }
 
-
-/* =================================================================== */
-/* 5. DETALLES VISUALES DEL MÁSTIL (TRASTES, CUERDAS, INLAYS)         */
-/* =================================================================== */
-/* Celda genérica de la grid (tanto cejuela como trastes) */
-.fret-cell {
-  position: relative; /* Contexto para posicionar las notas */
-  display: grid;
-  place-items: center;
-  border-right: 2px solid var(--color-fret-wire); /* El alambre del traste */
-  border-top: 1px solid var(--color-string); /* La cuerda de la guitarra */
-}
-
-/* Última fila no necesita cuerda superior */
-.fret-cell[data-string="5"] {
-  border-bottom: 1px solid var(--color-string);
-}
-
-/* Cejuela (columna 0) */
-.fret-cell:first-child {
-  border-right-width: 8px; /* Cejuela más gruesa */
-  border-right-color: var(--color-nut);
-}
-
-/* Inlays (puntos guía) */
-.fret-inlay {
-  position: absolute;
-  background-color: var(--color-fret-inlay);
+.controls select:disabled {
+  background-color: #e9ecef; /* Lighter disabled bg */
+  cursor: not-allowed;
   opacity: 0.6;
-  border-radius: 50%;
+}
+/* Checkbox styling */
+.controls input[type='checkbox'] {
+  width: 18px; /* Slightly larger */
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--clr-primary); /* Modern way to color checkboxes */
+}
+
+/* --- Fretboard --- */
+.fretboard-container {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 30px;
+  margin-bottom: 25px;
+  background: linear-gradient(
+    to right,
+    #f7f7f7,
+    #ffffff,
+    #f7f7f7
+  ); /* Softer gradient */
+  border-radius: 8px;
+  padding: 15px 0;
+}
+.fretboard {
+  min-width: 900px;
+  height: 260px;
+  background-color: var(--clr-fretboard);
+  border: 2px solid var(--clr-fretboard-border);
+  position: relative;
+  margin: 30px auto 0 auto;
+  border-radius: 8px; /* Consistent radius */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+}
+.string {
+  position: absolute;
+  background-color: var(--clr-string);
+  height: 2px;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.fret-line {
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  background-color: var(--clr-fret);
+  z-index: 0;
+  pointer-events: none;
+}
+.fret-line.nut {
+  width: 8px;
+  background-color: var(--clr-nut);
+}
+.fret-number {
+  position: absolute;
+  color: #444; /* Darker fret numbers */
+  font-size: 0.85rem; /* Slightly larger */
+  pointer-events: none;
+  top: -25px;
+  transform: translateX(-50%);
+  font-weight: normal;
+}
+.fret-marker {
+  position: absolute;
   width: 12px;
   height: 12px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
-}
-
-/* Celda para las notas de las cuerdas al aire (fuera de la grid de trastes) */
-.open-string-label {
-  display: grid;
-  place-items: center;
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: var(--color-text-secondary);
-}
-
-
-/* =================================================================== */
-/* 6. MARCADORES DE NOTAS                                              */
-/* =================================================================== */
-.note-marker {
-  width: 34px;
-  height: 34px;
+  background-color: var(--clr-fret-marker);
   border-radius: 50%;
-  display: grid;
-  place-items: center;
+  transform: translate(-50%, -50%);
+  opacity: 0.5; /* Slightly less opaque */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- Notes --- */
+.note-area {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.note-display {
+  position: relative;
+  width: 30px; /* Increased size */
+  height: 30px; /* Increased size */
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Softer border */
+  background-color: var(--clr-grey);
+  color: var(--clr-text-on-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.15s ease-out; /* Smoother transition */
+  font-size: 11px; /* Base size for text inside */
   font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--color-note-other-text);
-  background-color: var(--color-note-other-bg);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  /* Animación sutil al aparecer */
-  transform: scale(0.8);
-  opacity: 0;
-  animation: pop-in 0.3s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow */
+  pointer-events: none;
+  user-select: none;
+  line-height: 1.1;
+  text-align: center;
+}
+.note-display .note-name {
+  font-size: 13px; /* Increased size */
+  display: block;
+}
+.note-display .note-function {
+  font-size: 10px; /* Increased size */
+  display: block;
+  opacity: 0.85;
+  margin-top: 0px; /* Adjusted spacing */
+}
+.note-area:hover .note-display {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger hover shadow */
+  transform: scale(1.1); /* Slightly larger scale on hover */
 }
 
-/* Estilo específico para la nota tónica (Root Note) */
-.note-marker.root {
-  background-color: var(--color-note-root-bg);
-  color: var(--color-note-root-text);
-  transform: scale(1.1); /* La hacemos un poco más grande */
+/* Estilos de estado y resaltado */
+.note-display.selected {
+  background-color: var(--clr-note-selected-bg);
+  color: var(--clr-note-selected-text);
+}
+.note-display.tonic {
+  background-color: var(--clr-interval-root) !important;
+  color: var(--clr-text-on-dark);
+  border: 2px solid var(--clr-white);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 2px 5px rgba(0, 0, 0, 0.3); /* Enhanced tonic shadow */
+}
+.note-display.highlight {
+  opacity: 1;
+}
+.note-display.highlight-bass {
+  border: 2px solid var(--clr-white);
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.7),
+    0 0 12px 2px var(--clr-black); /* Bass note more prominent */
+}
+.note-display.highlight-root {
+  background-color: var(--clr-interval-root) !important;
+  color: var(--clr-text-on-dark);
+  opacity: 0.85;
+  border: 1px dashed var(--clr-white);
 }
 
-@keyframes pop-in {
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+/* Colores de Intervalos aplicados a .note-display.highlight */
+.note-display.highlight.interval-1 {
+  background-color: var(--clr-interval-root);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-b2 {
+  background-color: var(--clr-interval-m2);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-2 {
+  background-color: var(--clr-interval-M2);
+  color: var(--clr-text-on-light);
+}
+.note-display.highlight.interval-b3 {
+  background-color: var(--clr-interval-m3);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-3 {
+  background-color: var(--clr-interval-M3);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-4 {
+  background-color: var(--clr-interval-P4);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-b5,
+.note-display.highlight.interval-a4,
+.note-display.highlight.interval-TT {
+  background-color: var(--clr-interval-TT);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-5 {
+  background-color: var(--clr-interval-P5);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-a5 {
+  background-color: var(--clr-interval-P5);
+  color: var(--clr-text-on-dark);
+  border: 1px dashed var(--clr-black);
+}
+.note-display.highlight.interval-b6 {
+  background-color: var(--clr-interval-m6);
+  color: var(--clr-text-on-light);
+}
+.note-display.highlight.interval-6 {
+  background-color: var(--clr-interval-M6);
+  color: var(--clr-text-on-dark);
+}
+.note-display.highlight.interval-bb7 {
+  background-color: var(--clr-interval-m7);
+  color: var(--clr-text-on-yellow);
+  border: 1px dashed var(--clr-black);
+}
+.note-display.highlight.interval-b7 {
+  background-color: var(--clr-interval-m7);
+  color: var(--clr-text-on-yellow);
+}
+.note-display.highlight.interval-7 {
+  background-color: var(--clr-interval-M7);
+  color: var(--clr-text-on-yellow);
+}
+.note-display.highlight:not([class*='interval-']) {
+  background-color: var(--clr-interval-other);
+  color: var(--clr-text-on-dark);
 }
 
-/* =================================================================== */
-/* 7. MEDIA QUERIES PARA RESPONSIVIDAD                                 */
-/* =================================================================== */
-@media (max-width: 768px) {
-  body {
-    padding: 1rem 0;
-  }
-  .master-container {
-    padding: 1.5rem 1rem;
-    border-radius: 0;
-    min-height: 100vh;
-  }
-  .controls-wrapper {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .control-group select {
-    min-width: 100%;
-  }
+/* --- Info Display --- */
+#infoContainer {
+  margin-top: 25px;
+  background-color: var(--clr-light);
+  border-radius: 8px;
+  padding: 20px 25px;
+  text-align: left;
+  font-size: 0.98em; /* Slightly larger base font */
+  border: 1px solid #dde2e7;
+}
+#infoContainer h2 {
+  text-align: left;
+  font-size: 1.25em;
+  margin-bottom: 12px;
+}
+#selectedNotes,
+#intervalsDisplay,
+#chordName {
+  font-weight: 600; /* Bolder */
+  margin: 10px 0; /* Increased margin */
+  min-height: 1.3em;
+  line-height: 1.5;
+}
+#chordName {
+  color: var(--clr-accent);
+  font-size: 1.1em;
+} /* Larger chord name */
+#currentStudyPattern {
+  font-weight: 600;
+  color: var(--clr-primary);
+  margin-bottom: 12px;
+  min-height: 1.3em;
+  font-size: 1.05em;
+}
+#equivalentPatterns {
+  font-style: italic;
+  color: var(--clr-secondary);
+  margin-top: 8px;
+  min-height: 1.3em;
+  font-size: 0.95em;
+}
+.highlighted-notes-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Increased gap */
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--clr-grey);
+}
+.highlighted-note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px; /* Increased padding */
+  border-radius: 16px; /* More rounded */
+  /* background-color: var(--clr-grey); */ /* Let interval class handle background */
+  /* color: var(--clr-text-on-light); */ /* Let interval class handle text color */
+  font-size: 0.9em; /* Slightly larger */
+  font-weight: 600;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease-out;
+}
+.highlighted-note:hover {
+  transform: translateY(-1px);
+}
+
+.interval-color-indicator {
+  width: 14px; /* Larger indicator */
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 7px; /* Increased margin */
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+/* Aplicar colores a los indicadores y texto del highlighted-note */
+.highlighted-note.interval-1 {
+  background-color: var(--clr-interval-root);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-1 .interval-color-indicator {
+  background-color: var(--clr-interval-root);
+}
+.highlighted-note.interval-b2 {
+  background-color: var(--clr-interval-m2);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-b2 .interval-color-indicator {
+  background-color: var(--clr-interval-m2);
+}
+.highlighted-note.interval-2 {
+  background-color: var(--clr-interval-M2);
+  color: var(--clr-text-on-light);
+}
+.highlighted-note.interval-2 .interval-color-indicator {
+  background-color: var(--clr-interval-M2);
+}
+.highlighted-note.interval-b3 {
+  background-color: var(--clr-interval-m3);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-b3 .interval-color-indicator {
+  background-color: var(--clr-interval-m3);
+}
+.highlighted-note.interval-3 {
+  background-color: var(--clr-interval-M3);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-3 .interval-color-indicator {
+  background-color: var(--clr-interval-M3);
+}
+.highlighted-note.interval-4 {
+  background-color: var(--clr-interval-P4);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-4 .interval-color-indicator {
+  background-color: var(--clr-interval-P4);
+}
+.highlighted-note.interval-b5,
+.highlighted-note.interval-a4,
+.highlighted-note.interval-TT {
+  background-color: var(--clr-interval-TT);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-b5 .interval-color-indicator,
+.highlighted-note.interval-a4 .interval-color-indicator,
+.highlighted-note.interval-TT .interval-color-indicator {
+  background-color: var(--clr-interval-TT);
+}
+.highlighted-note.interval-5 {
+  background-color: var(--clr-interval-P5);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-5 .interval-color-indicator {
+  background-color: var(--clr-interval-P5);
+}
+.highlighted-note.interval-a5 {
+  background-color: var(--clr-interval-P5);
+  color: var(--clr-text-on-dark);
+  border: 1px dashed var(--clr-black);
+}
+.highlighted-note.interval-a5 .interval-color-indicator {
+  background-color: var(--clr-interval-P5);
+  border: 1px dashed var(--clr-black);
+}
+.highlighted-note.interval-b6 {
+  background-color: var(--clr-interval-m6);
+  color: var(--clr-text-on-light);
+}
+.highlighted-note.interval-b6 .interval-color-indicator {
+  background-color: var(--clr-interval-m6);
+}
+.highlighted-note.interval-6 {
+  background-color: var(--clr-interval-M6);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note.interval-6 .interval-color-indicator {
+  background-color: var(--clr-interval-M6);
+}
+.highlighted-note.interval-bb7 {
+  background-color: var(--clr-interval-m7);
+  color: var(--clr-text-on-yellow);
+  border: 1px dashed var(--clr-black);
+}
+.highlighted-note.interval-bb7 .interval-color-indicator {
+  background-color: var(--clr-interval-m7);
+  border: 1px dashed var(--clr-black);
+}
+.highlighted-note.interval-b7 {
+  background-color: var(--clr-interval-m7);
+  color: var(--clr-text-on-yellow);
+}
+.highlighted-note.interval-b7 .interval-color-indicator {
+  background-color: var(--clr-interval-m7);
+}
+.highlighted-note.interval-7 {
+  background-color: var(--clr-interval-M7);
+  color: var(--clr-text-on-yellow);
+}
+.highlighted-note.interval-7 .interval-color-indicator {
+  background-color: var(--clr-interval-M7);
+}
+.highlighted-note:not([class*='interval-']) {
+  background-color: var(--clr-interval-other);
+  color: var(--clr-text-on-dark);
+}
+.highlighted-note:not([class*='interval-']) .interval-color-indicator {
+  background-color: var(--clr-interval-other);
 }
