@@ -1,77 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Metadatos básicos y enlace a la hoja de estilos -->
+    <!-- =================================================================== -->
+    <!-- CONFIGURACIÓN ESENCIAL Y METADATOS                                  -->
+    <!-- =================================================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gipsyjazz Mástil de Estudio Interactivo</title>
+    <title>Mástil de Guitarra Interactivo (Pro)</title>
+
+    <!-- =================================================================== -->
+    <!-- FUENTES Y ESTILOS                                                   -->
+    <!-- =================================================================== -->
+    <!-- Importamos una fuente profesional de Google Fonts para un look moderno -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Enlace a nuestra hoja de estilos principal -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Contenedor principal de la aplicación -->
-    <div class="guitar-app-container">
+    <!-- Contenedor maestro que envuelve toda la aplicación -->
+    <div class="master-container">
 
-        <!-- Encabezado de la aplicación -->
-        <header class="app-header">
-            <h1>Gipsyjazz Mástil de Estudio</h1>
+        <!-- =================================================================== -->
+        <!-- PANEL DE CONTROL SUPERIOR                                           -->
+        <!-- =================================================================== -->
+        <header class="control-header">
+            
+            <!-- Título principal de la aplicación -->
+            <h1>Mástil Interactivo</h1>
+            
+            <!-- Subtítulo que mostrará dinámicamente el nombre de la escala/acorde -->
+            <h2 id="current-pattern-title">Selecciona un patrón</h2>
+
+            <!-- Wrapper para los selectores de control -->
+            <div class="controls-wrapper">
+
+                <!-- Grupo para el selector de Tónica -->
+                <div class="control-group">
+                    <label for="root-note-select">Tónica</label>
+                    <select id="root-note-select" name="root-note">
+                        <option value="C" selected>C</option>
+                        <option value="C#">C# / Db</option>
+                        <option value="D">D</option>
+                        <option value="D#">D# / Eb</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="F#">F# / Gb</option>
+                        <option value="G">G</option>
+                        <option value="G#">G# / Ab</option>
+                        <option value="A">A</option>
+                        <option value="A#">A# / Bb</option>
+                        <option value="B">B</option>
+                    </select>
+                </div>
+
+                <!-- Grupo para el selector de Tipo (Escala/Acorde) -->
+                <div class="control-group">
+                    <label for="type-select">Tipo</label>
+                    <select id="type-select" name="type">
+                        <option value="scales">Escalas</option>
+                        <option value="arpeggios">Arpegios</option>
+                    </select>
+                </div>
+
+                <!-- Grupo para el selector de Nombre específico -->
+                <div class="control-group">
+                    <label for="name-select">Nombre</label>
+                    <select id="name-select" name="name">
+                        <option>--</option>
+                        <!-- Opciones generadas por JavaScript -->
+                    </select>
+                </div>
+
+            </div>
         </header>
 
-        <!-- Panel con los controles interactivos -->
-        <div class="controls-panel">
+        <!-- =================================================================== -->
+        <!-- ÁREA PRINCIPAL DEL MÁSTIL                                           -->
+        <!-- =================================================================== -->
+        <!-- Este contenedor es crucial para permitir el scroll horizontal en móviles -->
+        <main class="fretboard-area">
             
-            <!-- Grupo de control para la nota tónica -->
-            <div class="control-group">
-                <label for="root-note-select">Tónica</label>
-                <select id="root-note-select">
-                    <option value="C" selected>C</option>
-                    <option value="C#">C#</option>
-                    <option value="D">D</option>
-                    <option value="D#">D#</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="F#">F#</option>
-                    <option value="G">G</option>
-                    <option value="G#">G#</option>
-                    <option value="A">A</option>
-                    <option value="A#">A#</option>
-                    <option value="B">B</option>
-                </select>
-            </div>
-            
-            <!-- Grupo de control para el tipo (escala, acorde, etc.) -->
-            <div class="control-group">
-                <label for="type-select">Tipo</label>
-                <select id="type-select">
-                    <option value="scales">Escalas</option>
-                    <option value="arpeggios">Arpegios</option>
-                    <option value="chords">Acordes</option>
-                </select>
+            <!-- El mástil en sí. JavaScript se encargará de construir su contenido. -->
+            <!-- Es una grid que contendrá las celdas de las cuerdas al aire y los trastes. -->
+            <div id="fretboard">
+                <!-- EJEMPLO DE ESTRUCTURA QUE GENERARÁ JAVASCRIPT:
+                
+                <div class="open-string-label">E</div>
+                <div class="fret-cell" data-string="0" data-fret="1"><div class="note-marker">F</div></div>
+                ... más trastes ...
+
+                -->
             </div>
 
-            <!-- Grupo de control para el nombre específico -->
-            <div class="control-group">
-                <label for="name-select">Nombre</label>
-                <select id="name-select">
-                    <!-- Las opciones se cargarán dinámicamente con JavaScript -->
-                    <option>Selecciona un tipo...</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Contenedor para el mástil de la guitarra -->
-        <!-- Este div es importante para permitir el scroll horizontal en dispositivos pequeños -->
-        <div id="fretboard-container">
-            <!-- El mástil de la guitarra (trastes, cuerdas y notas) se generará aquí con JavaScript -->
-            <div class="fretboard-placeholder">
-                <p>Cargando mástil...</p>
-            </div>
-        </div>
+        </main>
 
     </div>
 
-    <!-- Enlace al archivo JavaScript que controlará la lógica -->
-    <!-- Se coloca al final para asegurar que el HTML se cargue primero -->
+    <!-- Script principal de la aplicación. Se carga al final para un rendimiento óptimo. -->
     <script type="module" src="app.js"></script>
 
 </body>
