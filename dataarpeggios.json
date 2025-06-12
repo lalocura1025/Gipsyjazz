@@ -1,7 +1,0 @@
-{
-  "Mayor 7 (Maj7)": [0, 4, 7, 11],
-  "Menor 7 (m7)": [0, 3, 7, 10],
-  "Dominante 7 (7)": [0, 4, 7, 10],
-  "Menor 7b5 (semidisminuido)": [0, 3, 6, 10],
-  "Disminuido 7 (dim7)": [0, 3, 6, 9]
-}

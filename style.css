@@ -1,171 +1,543 @@
-/* --- Reseteo y Variables --- */
+/*
+  ================================================================================
+  HOJA DE ESTILOS PRINCIPAL - REFACTORIZACIÓN PROFESIONAL
+  APLICACIÓN: Diapasón Interactivo Avanzado - Entrenador v3.4 (Mejorado)
+  VERSIÓN: 3.4.1
+  DESCRIPCIÓN: Esta hoja de estilos implementa la estética del "Entrenador v3.4"
+               sobre una arquitectura de Sistema de Diseño robusta y escalable.
+               Utiliza variables CSS para un control total sobre el tema,
+               está organizada lógicamente y documentada extensivamente.
+  
+  ESTRUCTURA DEL ARCHIVO:
+  1.  :root -> Sistema de Diseño (Variables Globales)
+      A. Paleta de Colores Semántica
+      B. Paleta del Diapasón
+      C. Paleta de Notas e Intervalos
+      D. Sistema de Tipografía
+      E. Sistema de Espaciado y Ratios
+      F. Sombras y Efectos
+  2.  Reseteo Global y Estilos Base
+  3.  Layout y Contenedores Principales
+  4.  Estilos de Componentes de UI (Controles)
+  5.  Componente: Diapasón
+  6.  Componente: Notas e Indicadores
+  7.  Componente: Panel de Información
+  8.  Clases de Utilidad y Estados
+  9.  Animaciones y Transiciones
+  ================================================================================
+*/
+
+/* ==========================================================================
+   1. :root -> SISTEMA DE DISEÑO (VARIABLES GLOBALES)
+   ========================================================================== */
 :root {
-    --bg-color: #2c3e50;
-    --text-color: #ecf0f1;
-    --primary-color: #3498db;
-    --fretboard-wood: #6d4c41;
-    --fret-wire: #bdc3c7;
-    --note-bg: #e74c3c;
-    --note-root-bg: #f1c40f;
-    --note-text: #2c3e50;
-    --dot-marker: #a9a9a9;
+    /* ---------------------------------- */
+    /* A. Paleta de Colores Semántica     */
+    /* ---------------------------------- */
+    --clr-primary: #3498db;          /* Azul principal para acciones y enfoque */
+    --clr-primary-dark: #2a80b3;      /* Tono más oscuro para gradientes/hover */
+    --clr-primary-light: #3ea4e0;     /* Tono más claro para hover/feedback */
+    --clr-primary-focus-ring: rgba(52, 152, 219, 0.3); /* Sombra de enfoque */
+
+    --clr-secondary: #2ecc71;         /* Verde para éxito y validación */
+    --clr-accent: #e74c3c;            /* Rojo para errores, alertas y tónicas */
+    --clr-accent-dark: #c0392b;       /* Tono más oscuro de acento */
+    --clr-accent-light: #e95c4e;      /* Tono más claro de acento */
+    --clr-warning: #f1c40f;           /* Amarillo para advertencias */
+    --clr-purple: #9b59b6;            /* Púrpura para elementos especiales */
+    --clr-orange: #e67e22;            /* Naranja para otros destaques */
+
+    /* Tonos Neutros */
+    --clr-dark: #2c3e50;              /* Color de texto principal */
+    --clr-dark-lighten: #4a6179;      /* Tono más claro de --clr-dark */
+    --clr-light: #ecf0f1;             /* Fondos de secciones */
+    --clr-grey: #bdc3c7;              /* Bordes y elementos deshabilitados */
+    --clr-grey-dark: #7f8c8d;         /* Texto secundario o muted */
+    --clr-white: #ffffff;
+    --clr-black: #000000;
+    --clr-page-bg: #f0f2f5;           /* Fondo general de la página */
+    --clr-border: #dde2e7;           /* Borde sutil para contenedores */
+    --clr-hr: #e0e0e0;                /* Color para líneas horizontales */
+
+    /* ---------------------------------- */
+    /* B. Paleta del Diapasón             */
+    /* ---------------------------------- */
+    --clr-fretboard: #e3c4a1;
+    --clr-fretboard-border: #6b4226;
+    --clr-fret: #a0a0a0;
+    --clr-nut: #4d2e1a;
+    --clr-string: #666;
+    --clr-fret-marker: #4d2e1a;
+    --clr-fret-number: #444;
+
+    /* ---------------------------------- */
+    /* C. Paleta de Notas e Intervalos    */
+    /* ---------------------------------- */
+    --clr-note-text-on-dark: var(--clr-white);
+    --clr-note-text-on-light: var(--clr-dark);
+    --clr-note-text-on-yellow: var(--clr-dark);
+    --clr-note-selected-bg: var(--clr-dark);
+    --clr-note-selected-text: var(--clr-white);
+
+    /* Mapeo semántico de colores de intervalos */
+    --clr-interval-root: var(--clr-accent);
+    --clr-interval-m2: var(--clr-grey-dark);
+    --clr-interval-M2: var(--clr-grey);
+    --clr-interval-m3: var(--clr-primary);
+    --clr-interval-M3: var(--clr-primary);
+    --clr-interval-P4: var(--clr-orange);
+    --clr-interval-TT: var(--clr-purple);
+    --clr-interval-P5: var(--clr-secondary);
+    --clr-interval-m6: var(--clr-grey);
+    --clr-interval-M6: var(--clr-purple);
+    --clr-interval-m7: var(--clr-warning);
+    --clr-interval-M7: var(--clr-warning);
+    --clr-interval-P8: var(--clr-interval-root);
+    --clr-interval-other: var(--clr-grey-dark);
+
+    /* ---------------------------------- */
+    /* D. Sistema de Tipografía           */
+    /* ---------------------------------- */
+    --font-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 16px;
+    --font-size-h1: 2em;
+    --font-size-h2: 1.4em;
+    --font-size-control: 0.95em;
+    --font-size-label: 0.88em;
+    --font-size-note-name: 13px;
+    --font-size-note-function: 10px;
+    --font-weight-normal: 400;
+    --font-weight-medium: 600;
+    --font-weight-bold: 700;
+    --line-height-base: 1.6;
+
+    /* ---------------------------------- */
+    /* E. Sistema de Espaciado y Ratios   */
+    /* ---------------------------------- */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 50%;
+
+    /* ---------------------------------- */
+    /* F. Sombras y Efectos               */
+    /* ---------------------------------- */
+    --shadow-soft: 0 6px 20px rgba(0, 0, 0, 0.07);
+    --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.1);
+    --shadow-interactive: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-interactive-hover: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-* {
+/* ==========================================================================
+   2. RESETEO GLOBAL Y ESTILOS BASE
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
+    font-family: var(--font-primary);
+    background-color: var(--clr-page-bg);
+    color: var(--clr-dark);
+    line-height: var(--line-height-base);
+    padding: var(--spacing-md);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Layout Principal --- */
+/* ==========================================================================
+   3. LAYOUT Y CONTENEDORES PRINCIPALES
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: var(--spacing-md) auto;
+    background-color: var(--clr-bg-container);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+}
+
 header {
     text-align: center;
-    padding: 1.5rem 1rem;
-    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: var(--spacing-xl);
 }
 
-main {
-    padding: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+h1 {
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-xs);
 }
 
-/* --- Controles --- */
+h2 {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-lg);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--clr-hr);
+    margin: var(--spacing-xl) 0;
+}
+
+/* ==========================================================================
+   4. ESTILOS DE COMPONENTES DE UI (CONTROLES)
+   ========================================================================== */
 .controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background-color: var(--clr-bg-controls);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--clr-border);
 }
 
 .control-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-label {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+.control-group label {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-medium);
+    color: var(--clr-dark);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    display: block;
 }
 
-select {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid var(--fret-wire);
-    background-color: #34495e;
-    color: var(--text-color);
-    font-size: 1rem;
+.controls label:not(.checkbox-label) {
+    /* Este estilo asegura que la label y el control estén alineados verticalmente.
+       Un label vacío con &nbsp; fuerza la altura del contenedor. */
+    min-height: 1.2em;
+}
+
+.controls select,
+.controls button {
+    height: 42px;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--clr-grey);
+    border-radius: var(--radius-sm);
+    background-color: var(--clr-white);
     cursor: pointer;
+    font-size: var(--font-size-control);
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
 }
 
-/* --- Mástil (Fretboard) --- */
-#fretboard-container {
-    overflow-x: auto; /* Permite scroll horizontal en móviles */
-    padding: 1rem 0;
+.controls select:focus-visible,
+.controls button:focus-visible {
+    outline: none;
+    border-color: var(--clr-primary);
+    box-shadow: 0 0 0 3px var(--clr-primary-focus-ring);
+}
+
+.controls select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232c3e50%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 0.7em auto;
+    padding-right: 35px;
+    text-align-last: center; /* Centra el texto en selects */
+}
+
+.controls button {
+    color: var(--clr-white);
+    border: none;
+    font-weight: var(--font-weight-medium);
+    box-shadow: var(--shadow-interactive);
+}
+
+.controls button:hover {
+    box-shadow: var(--shadow-interactive-hover);
+}
+
+.controls button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* Estilos específicos para botones con gradientes */
+#showPatternBtn { background-image: linear-gradient(to bottom, var(--clr-primary), var(--clr-primary-dark)); }
+#showPatternBtn:hover { background-image: linear-gradient(to bottom, var(--clr-primary-light), var(--clr-primary)); }
+
+#resetBtn { background-image: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent-dark)); }
+#resetBtn:hover { background-image: linear-gradient(to bottom, var(--clr-accent-light), var(--clr-accent)); }
+
+#clearHighlightsBtn { background-image: linear-gradient(to bottom, var(--clr-dark), var(--clr-dark-lighten)); }
+#clearHighlightsBtn:hover { background-image: linear-gradient(to bottom, var(--clr-dark-lighten), var(--clr-dark)); }
+
+
+.controls select:disabled {
+    background-color: var(--clr-bg-page);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.control-group.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.5em; /* Alinear verticalmente con botones */
+    min-height: 42px;
+}
+
+.control-group.checkbox-group .checkbox-label {
+    margin-bottom: 0;
+    margin-left: var(--spacing-sm);
+    cursor: pointer;
+    font-weight: var(--font-weight-normal);
+}
+
+.controls input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--clr-primary);
+}
+
+/* ==========================================================================
+   5. COMPONENTE: DIAPASÓN
+   ========================================================================== */
+.fretboard-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-lg);
+    background: linear-gradient(to right, #f7f7f7, var(--clr-white), #f7f7f7);
+    border-radius: var(--radius-md);
 }
 
 .fretboard {
-    display: grid;
-    grid-template-columns: 50px repeat(15, 1fr); /* Cejuela + 15 trastes */
-    gap: 2px;
-    background-color: var(--fretboard-wood);
-    border: 3px solid #000;
-    border-radius: 5px;
-    min-width: 900px; /* Evita que los trastes se aplasten demasiado */
+    min-width: 900px;
+    height: 260px;
+    background-color: var(--clr-fretboard);
+    border: 2px solid var(--clr-fretboard-border);
+    position: relative;
+    margin: var(--spacing-lg) auto 0 auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-medium);
 }
 
 .string {
-    display: contents; /* Permite que los hijos se posicionen en la grid del padre */
+    position: absolute;
+    background-color: var(--clr-string);
+    z-index: 1;
+    pointer-events: none;
 }
 
-.fret {
+.fret-line {
+    position: absolute;
+    height: 100%;
+    background-color: var(--clr-fret);
+    z-index: 0;
+    pointer-events: none;
+    width: 3px;
+}
+
+.fret-line.nut {
+    width: 8px;
+    background-color: var(--clr-nut);
+}
+
+.fret-number {
+    position: absolute;
+    color: var(--clr-fret-number);
+    font-size: 0.85rem;
+    pointer-events: none;
+    top: -25px;
+    transform: translateX(-50%);
+}
+
+.fret-marker {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: var(--clr-fret-marker);
+    border-radius: var(--radius-full);
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+/* ==========================================================================
+   6. COMPONENTE: NOTAS E INDICADORES
+   ========================================================================== */
+.note-area {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note-display {
     position: relative;
-    padding: 1rem 0;
-    border-right: 2px solid var(--fret-wire);
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: var(--clr-grey);
+    color: var(--clr-text-on-light);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s ease-out;
+    font-weight: var(--font-weight-medium);
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    user-select: none;
+    line-height: 1.1;
+    text-align: center;
 }
 
-/* Cejuela */
-.fret:first-child {
-    background-color: #eee;
-    border-right: 5px solid #333;
+.note-area:hover .note-display {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
 }
 
-/* Marcadores de posición (inlays) */
-.fret[data-fret="3"]::after,
-.fret[data-fret="5"]::after,
-.fret[data-fret="7"]::after,
-.fret[data-fret="9"]::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: var(--dot-marker);
-    border-radius: 50%;
-    /* Posicionado entre la 3ª y 4ª cuerda (G y D) */
-    top: calc(50% * 2.5); 
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.7;
+.note-display .note-name {
+    font-size: var(--font-size-note-name);
+    display: block;
 }
 
-.fret[data-fret="12"]::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: var(--dot-marker);
-    border-radius: 50%;
-    opacity: 0.7;
-    /* Doble punto */
-    top: calc(50% * 1.5); 
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 32px 0 var(--dot-marker);
+.note-display .note-function {
+    font-size: var(--font-size-note-function);
+    display: block;
+    opacity: 0.85;
 }
 
+/* Estados de las Notas */
+.note-display.selected {
+    background-color: var(--clr-note-selected-bg);
+    color: var(--clr-note-selected-text);
+}
 
-/* --- Notas --- */
-.note {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: var(--note-bg);
-    color: var(--note-text);
+.note-display.tonic {
+    background-color: var(--clr-interval-root) !important;
+    color: var(--clr-note-text-on-dark) !important;
+    border: 2px solid var(--clr-white);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.note-display.highlight { opacity: 1; }
+
+.note-display.highlight-bass {
+    border: 2px solid var(--clr-white);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7), 0 0 12px 2px var(--clr-black);
+}
+
+.note-display.highlight-root {
+    background-color: var(--clr-interval-root) !important;
+    color: var(--clr-note-text-on-dark) !important;
+    opacity: 0.85;
+    border: 1px dashed var(--clr-white);
+}
+
+/* Colores de Intervalos aplicados a .note-display.highlight */
+.note-display.highlight.interval-1, .note-display.highlight.interval-8 { background-color: var(--clr-interval-root); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-b2 { background-color: var(--clr-interval-m2); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-2 { background-color: var(--clr-interval-M2); color: var(--clr-note-text-on-light); }
+.note-display.highlight.interval-b3 { background-color: var(--clr-interval-m3); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-3 { background-color: var(--clr-interval-M3); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-4 { background-color: var(--clr-interval-P4); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-TT { background-color: var(--clr-interval-TT); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-5 { background-color: var(--clr-interval-P5); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-b6 { background-color: var(--clr-interval-m6); color: var(--clr-note-text-on-light); }
+.note-display.highlight.interval-6 { background-color: var(--clr-interval-M6); color: var(--clr-note-text-on-dark); }
+.note-display.highlight.interval-b7 { background-color: var(--clr-interval-m7); color: var(--clr-note-text-on-yellow); }
+.note-display.highlight.interval-7 { background-color: var(--clr-interval-M7); color: var(--clr-note-text-on-yellow); }
+
+/* ==========================================================================
+   7. COMPONENTE: PANEL DE INFORMACIÓN
+   ========================================================================== */
+#infoContainer {
+    margin-top: var(--spacing-lg);
+    background-color: var(--clr-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border: 1px solid var(--clr-border);
+}
+
+#infoContainer .info-section {
+    padding: var(--spacing-sm) 0;
+}
+
+#infoContainer p {
+    min-height: 1.3em;
+}
+
+#selectedNotes, #intervalsDisplay, #chordName, #currentStudyPattern, #equivalentPatterns {
+    font-weight: var(--font-weight-medium);
+}
+
+#chordName { color: var(--clr-accent); font-size: 1.1em; }
+#currentStudyPattern { color: var(--clr-primary); font-size: 1.05em; }
+#equivalentPatterns { font-style: italic; color: var(--clr-secondary); font-size: 0.95em; }
+
+.highlighted-notes-display {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px dashed var(--clr-grey);
+}
+
+.highlighted-note {
+    display: inline-flex;
     align-items: center;
-    font-weight: bold;
-    font-size: 0.9rem;
-    z-index: 10;
-    transform: translateY(-50%);
-    border: 2px solid rgba(0, 0, 0, 0.3);
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.9em;
+    font-weight: var(--font-weight-medium);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.08);
+    transition: transform 0.15s ease-out;
+    border: 1px solid transparent; /* Placeholder for color */
 }
 
-.note.root-note {
-    background-color: var(--note-root-bg);
+.highlighted-note:hover {
+    transform: translateY(-2px);
 }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-    .controls {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1rem;
-    }
-    select {
-        width: 100%;
-    }
+.interval-color-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: var(--radius-full);
+    margin-right: var(--spacing-sm);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
 }
+
+/* Aplica colores a los indicadores y texto de la lista de notas */
+.highlighted-note.interval-1 .interval-color-indicator, .highlighted-note.interval-8 .interval-color-indicator { background-color: var(--clr-interval-root); }
+.highlighted-note.interval-b2 .interval-color-indicator { background-color: var(--clr-interval-m2); }
+.highlighted-note.interval-2 .interval-color-indicator { background-color: var(--clr-interval-M2); }
+.highlighted-note.interval-b3 .interval-color-indicator { background-color: var(--clr-interval-m3); }
+.highlighted-note.interval-3 .interval-color-indicator { background-color: var(--clr-interval-M3); }
+.highlighted-note.interval-4 .interval-color-indicator { background-color: var(--clr-interval-P4); }
+.highlighted-note.interval-TT .interval-color-indicator { background-color: var(--clr-interval-TT); }
+.highlighted-note.interval-5 .interval-color-indicator { background-color: var(--clr-interval-P5); }
+.highlighted-note.interval-b6 .interval-color-indicator { background-color: var(--clr-interval-m6); }
+.highlighted-note.interval-6 .interval-color-indicator { background-color: var(--clr-interval-M6); }
+.highlighted-note.interval-b7 .interval-color-indicator { background-color: var(--clr-interval-m7); }
+.highlighted-note.interval-7 .interval-color-indicator { background-color: var(--clr-interval-M7); }
+

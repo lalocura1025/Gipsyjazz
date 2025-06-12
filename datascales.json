@@ -1,8 +1,0 @@
-{
-  "Mayor": [0, 2, 4, 5, 7, 9, 11],
-  "Menor Natural": [0, 2, 3, 5, 7, 8, 10],
-  "Menor Armónica": [0, 2, 3, 5, 7, 8, 11],
-  "Menor Melódica": [0, 2, 3, 5, 7, 9, 11],
-  "Pentatónica Mayor": [0, 2, 4, 7, 9],
-  "Pentatónica Menor": [0, 3, 5, 7, 10]
-}
