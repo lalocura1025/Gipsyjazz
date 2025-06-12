@@ -1,0 +1,17 @@
+{
+    "Major": ["Ionian"],
+    "Natural Minor": ["Aeolian"],
+    "Jazz Minor": ["Melodic Minor (Asc)"],
+    "Dorian": ["Modo II (Major)"],
+    "Phrygian": ["Modo III (Major)"],
+    "Lydian": ["Modo IV (Major)"],
+    "Mixolydian": ["Modo V (Major)", "Escala Dominante"],
+    "Locrian": ["Modo VII (Major)"],
+    "Pentatonic Minor": ["Pentatónica Blues (sin b5)"],
+    "m7b5": ["Arpegio Locrio", "Arpegio Semidisminuido"],
+    "dim7": ["Arpegio Disminuido 7", "Simétrico Disminuido"],
+    "Minor 6": ["Arpegio Menor 6", "Usado sobre m7 o tónica menor"],
+    "Phrygian Dominant": ["Mixolydian b9 b13", "Modo V (Harmonic Minor)"],
+    "Lydian Dominant": ["Mixolydian #11", "Modo IV (Melodic Minor)"],
+    "Altered Scale (Super Locrian)": ["Diminished Whole Tone", "Modo VII (Melodic Minor)"]
+}

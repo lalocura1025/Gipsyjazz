@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -59,4 +60,189 @@
       </div>
     </main>
   </body>
+=======
+<!DOCTYPE html>
+<!-- 
+  ================================================================================
+  DOCUMENTO HTML PRINCIPAL - ARQUITECTURA MAESTRA
+  APLICACIÓN: Diapasón Interactivo Avanzado - Entrenador v3.4 (Mejorado)
+  VERSIÓN: 3.4.1
+  DESCRIPCIÓN: Este documento define la estructura semántica completa de la aplicación,
+               diseñada para encajar con el sistema de diseño de style.css.
+               Se prioriza la accesibilidad (ARIA), la semántica HTML5 y la
+               mantenibilidad a largo plazo a través de una documentación exhaustiva.
+  ================================================================================
+-->
+<html lang="es" class="scroll-smooth">
+<head>
+    <!-- =================================================================== -->
+    <!--  1. CONFIGURACIÓN FUNDAMENTAL DEL DOCUMENTO                         -->
+    <!-- =================================================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- =================================================================== -->
+    <!--  2. METADATOS (SEO Y PRESENTACIÓN)                                  -->
+    <!-- =================================================================== -->
+    <title>Diapasón Interactivo Avanzado - Entrenador v3.4</title>
+    <meta name="description" content="Una herramienta interactiva y avanzada para estudiar escalas, arpegios, acordes y voicings de Gypsy Jazz en el diapasón de la guitarra. Visualiza patrones, identifica acordes y explora la teoría musical de Django Reinhardt." />
+    <meta name="keywords" content="gypsy jazz, guitarra, diapasón, interactivo, teoría musical, escalas, acordes, arpegios, django reinhardt, manouche, drop 2, entrenador de mástil" />
+    <meta name="author" content="Equipo de Desarrollo Diapasón Interactivo" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- =================================================================== -->
+    <!--  3. DEPENDENCIAS EXTERNAS Y FUENTES                                 -->
+    <!-- =================================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Librerías de JavaScript cargadas de forma asíncrona para no bloquear el renderizado -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js" async></script>
+    
+    <!-- =================================================================== -->
+    <!--  4. ENLACES A NUESTROS ARCHIVOS LOCALES                              -->
+    <!-- =================================================================== -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="bg-page">
+
+    <!-- 
+      El tag <main> actúa como el contenedor principal del contenido único de la página.
+      El rol ARIA "application" es crucial aquí. Informa a los lectores de pantalla
+      que esto no es un documento estático, sino una interfaz interactiva compleja,
+      cambiando la forma en que el usuario interactúa con ella.
+    -->
+    <main class="container" role="application" aria-label="Aplicación de Entrenador de Diapasón">
+        
+        <header>
+            <h1>Entrenador de Mástil Avanzado v3.4</h1>
+        </header>
+
+        <!-- =================================================================== -->
+        <!--  PANEL DE CONTROLES PRINCIPALES                                     -->
+        <!-- =================================================================== -->
+        <section class="controls" aria-labelledby="controls-heading">
+            <h2 id="controls-heading" class="sr-only">Controles de la Aplicación</h2>
+
+            <!-- Cada .control-group es un componente de UI autocontenido -->
+            <div class="control-group">
+                <label for="tuningSelect">Afinación</label>
+                <select id="tuningSelect" aria-label="Seleccionar afinación de la guitarra"></select>
+            </div>
+            
+            <div class="control-group">
+                <label for="rootNoteSelect">Tónica</label>
+                <select id="rootNoteSelect" aria-label="Seleccionar nota tónica"></select>
+            </div>
+
+            <div class="control-group">
+                <label for="patternTypeSelect">Modo</label>
+                <select id="patternTypeSelect" aria-label="Seleccionar tipo de patrón musical">
+                    <option value="interval">Intervalo Simple</option>
+                    <option value="scale">Escala</option>
+                    <option value="arpeggio">Arpegio</option>
+                    <option value="chord">Acorde (Genérico)</option>
+                    <option value="dropVoicing">Drop Voicing</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+               <label for="patternSelect">Patrón/Voicing</label>
+               <select id="patternSelect" aria-label="Seleccionar patrón o voicing específico"></select>
+           </div>
+           
+            <div class="control-group">
+               <label for="inversionSelect">Inversión/Estado</label>
+               <select id="inversionSelect" disabled aria-label="Seleccionar inversión o estado del acorde">
+                   <option value="0">Fundamental</option>
+               </select>
+           </div>
+
+            <!-- Se usa una etiqueta con un non-breaking space para alinear verticalmente 
+                 los botones con los selectores que sí tienen una etiqueta visible. 
+                 Es una técnica para mantener la consistencia en la grid. -->
+            <div class="control-group">
+                <label>&nbsp;</label>
+                <button id="showPatternBtn">Mostrar</button>
+            </div>
+            
+            <div class="control-group checkbox-group">
+                <input type="checkbox" id="useFlatsCheckbox" aria-describedby="useFlatsLabel">
+                <label for="useFlatsCheckbox" id="useFlatsLabel" class="checkbox-label">Usar Bemoles (b)</label>
+            </div>
+            
+            <div class="control-group checkbox-group">
+                 <input type="checkbox" id="highlightRootsCheckbox" aria-describedby="highlightRootsLabel">
+                 <label for="highlightRootsCheckbox" id="highlightRootsLabel" class="checkbox-label">Resaltar Tónicas</label>
+            </div>
+
+            <div class="control-group">
+                <label>&nbsp;</label>
+                <button id="clearHighlightsBtn">Limpiar Vis.</button>
+            </div>
+
+            <div class="control-group">
+                <label>&nbsp;</label>
+                <button id="resetBtn">Resetear Todo</button>
+            </div>
+        </section>
+
+        <hr />
+
+        <!-- =================================================================== -->
+        <!--  SECCIÓN PRINCIPAL DEL DIAPASÓN                                     -->
+        <!-- =================================================================== -->
+        <section class="fretboard-container" aria-labelledby="fretboard-heading">
+            <h2 id="fretboard-heading" class="sr-only">Diapasón Interactivo</h2>
+            <!-- El rol "grid" indica que este es un widget interactivo con estructura de tabla.
+                 Es esencial para que la navegación con teclado (flechas) funcione correctamente. -->
+            <div class="fretboard" id="fretboard" role="grid" aria-label="Diapasón interactivo de guitarra, navega con las flechas">
+                <!-- El contenido del diapasón (cuerdas, trastes, notas) es generado dinámicamente por app.js -->
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!--  PANEL DE INFORMACIÓN Y RESULTADOS                                  -->
+        <!-- =================================================================== -->
+        <footer id="infoContainer" role="region" aria-labelledby="info-heading">
+            <h2 id="info-heading" class="sr-only">Panel de Información y Resultados</h2>
+            
+            <!-- Sección para la información del patrón que se está visualizando -->
+            <div class="info-section" id="pattern-info-section">
+                <p id="currentStudyPattern" aria-live="polite">Visualización actual: (Ninguna)</p>
+                <!-- aria-live="polite" anuncia los cambios al usuario de lector de pantalla de forma no intrusiva -->
+                <div class="highlighted-notes-display" id="highlightedNotesDisplay" aria-live="polite" aria-atomic="true">
+                    <!-- Las notas y sus intervalos se insertarán aquí dinámicamente -->
+                </div>
+                <p id="equivalentPatterns" aria-live="polite">Equivalencias: (Ninguna)</p>
+            </div>
+            
+            <hr />
+
+            <!-- Sección para la identificación de acordes seleccionados por el usuario -->
+            <div class="info-section" id="chord-id-section">
+                <h2>Identificación de Acordes (Click en notas)</h2>
+                <p id="selectedNotes" aria-live="polite">Notas seleccionadas: (Ninguna)</p>
+                <p>Intervalos detectados (Rel. a la 1ª nota): <span id="intervalsDisplay">(Ninguno)</span></p>
+                <p>Acorde detectado: <strong id="chordName" aria-live="assertive">N/A</strong></p>
+                 <!-- aria-live="assertive" en el nombre del acorde para que sea anunciado inmediatamente -->
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- =================================================================== -->
+    <!--  CARGA DEL SCRIPT PRINCIPAL DE LA APLICACIÓN                        -->
+    <!-- =================================================================== -->
+    <!-- 
+        Se carga como "module" para habilitar funcionalidades modernas de JS.
+        Se coloca al final del <body> para asegurar que todo el DOM esté parseado
+        antes de que el script intente manipularlo, previniendo errores.
+    -->
+    <script type="module" src="app.js"></script>
+
+</body>
 </html>

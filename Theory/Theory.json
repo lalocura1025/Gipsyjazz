@@ -1,0 +1,120 @@
+{
+  "escalas": [
+    {
+      "nombre": "Menor Armónica",
+      "formulaIntervalica": "1 2 b3 4 5 b6 7",
+      "relevanciaSonora": "Gran tensión (segunda aumentada b6-7); color dramático menor",
+      "notasAplicacion": "Usada sobre el V7 en iiø-V7-im menores para forzar la resolución a la tónica menor"
+    },
+    {
+      "nombre": "Menor Melódica (Jazz)",
+      "formulaIntervalica": "1 2 b3 4 5 6 7",
+      "relevanciaSonora": "Menor suave; base de modos alterados",
+      "notasAplicacion": "Escala de referencia para Im7/Im6 y para crear V7alt mediante sus modos (lidio dominante, alterada, etc.)"
+    },
+    {
+      "nombre": "Húngara Menor (o Gypsy Menor)",
+      "formulaIntervalica": "1 2 b3 #4 5 b6 7",
+      "relevanciaSonora": "Sonido exótico ‘gitano’; dos segundas aumentadas",
+      "notasAplicacion": "Muy usada sobre m(maj7) y para líneas melódicas de sabor oriental"
+    },
+    {
+      "nombre": "Disminuida (Tono-Semitono)",
+      "formulaIntervalica": "1 2 b3 4 b5 #5 6 7",
+      "relevanciaSonora": "Simétrica; delinea dim7",
+      "notasAplicacion": "Imprescindible sobre acordes dim7 de paso"
+    },
+    {
+      "nombre": "Disminuida (Semitono-Tono)",
+      "formulaIntervalica": "1 b9 #9 3 #11 5 6 b7",
+      "relevanciaSonora": "Simétrica; agrega b9/#9/#11",
+      "notasAplicacion": "Aplicada sobre V7b9 o V7alt para generar máxima tensión antes de resolver"
+    },
+    {
+      "nombre": "Tonos Enteros",
+      "formulaIntervalica": "1 2 3 #4 #5 #6",
+      "relevanciaSonora": "Sonido flotante y ambiguo",
+      "notasAplicacion": "Coloreado de V7#5 o V7#11 moderno"
+    },
+    {
+      "nombre": "Cromática",
+      "formulaIntervalica": "Todos semitonos",
+      "relevanciaSonora": "Conexión fluida; ‘marca registrada’ de Django",
+      "notasAplicacion": "Pasajes rápidos, enclosures y enlaces entre notas objetivo"
+    }
+  ],
+
+  "acordes": [
+    {
+      "nombre": "m6",
+      "formulaIntervalica": "R b3 5 6",
+      "relevanciaSonora": "Acorde menor emblemático; mezcla melancolía y brillo",
+      "notasAplicacion": "Tónica menor preferida en Gypsy Jazz (ej. ‘Minor Swing’); sustituye con frecuencia al m7"
+    },
+    {
+      "nombre": "Maj7",
+      "formulaIntervalica": "R 3 5 7",
+      "relevanciaSonora": "Sonoridad estable y límpida",
+      "notasAplicacion": "Grado I en ii-V-I y punto de llegada en turnarounds mayores"
+    },
+    {
+      "nombre": "Dominante 7 (7)",
+      "formulaIntervalica": "R 3 5 b7",
+      "relevanciaSonora": "Tensión clásica de resolución",
+      "notasAplicacion": "Grado V en casi todas las progresiones; acepta extensiones b9 / #9 / b13"
+    },
+    {
+      "nombre": "Dominante 7b9",
+      "formulaIntervalica": "R 3 5 b7 b9",
+      "relevanciaSonora": "Tensión aguda (b9) típica del estilo",
+      "notasAplicacion": "Resolución medio tono abajo; equivalente funcional a dim7 sin fundamental"
+    },
+    {
+      "nombre": "dim7",
+      "formulaIntervalica": "R b3 b5 bb7",
+      "relevanciaSonora": "Inestable y simétrica",
+      "notasAplicacion": "Acorde de paso cromático o sustituto de V7b9"
+    }
+  ],
+
+  "progresiones": [
+    {
+      "nombre": "ii-V-I Mayor",
+      "formula": "iim7 – V7 – Imaj7 (o I6/9)",
+      "ejemplos": {
+        "C": "Dm7 G7 Cmaj7",
+        "G": "Am7 D7 Gmaj7",
+        "F": "Gm7 C7 Fmaj7"
+      },
+      "notasAplicacion": "Piedra angular de la armonía jazz; genera fuerte atracción hacia la tónica"
+    },
+    {
+      "nombre": "ii-V-i Menor",
+      "formula": "iim7b5 – V7alt – im6",
+      "ejemplos": {
+        "Am": "Bm7b5 E7b9 Am6",
+        "Dm": "Em7b5 A7b9 Dm6"
+      },
+      "notasAplicacion": "Versión menor con V7 alterado; el im suele aparecer como m6 para el color típico"
+    },
+    {
+      "nombre": "I-vi-ii-V (Anatole)",
+      "formula": "Imaj7 (o I6/9) – vim7 (o VI7) – iim7 – V7",
+      "ejemplos": {
+        "C": "Cmaj7 Am7 Dm7 G7",
+        "G": "Gmaj7 Em7 Am7 D7"
+      },
+      "notasAplicacion": "Turnaround omnipresente (sección A de ‘Rhythm Changes’)"
+    },
+    {
+      "nombre": "'Minor Swing'",
+      "formula": "Am6  | Dm6 | E7 | Am6 | Dm6 | Am6 | E7 | Am6",
+      "notasAplicacion": "Progresión icónica del repertorio Gypsy Jazz; base ideal para practicar escalas menores y dominantes alterados"
+    },
+    {
+      "nombre": "I - #Idim7 - ii - V (disminuido de paso)",
+      "formula": "Imaj7 – #Idim7 – iim7 – V7",
+      "notasAplicacion": "Dim7 cromático conecta I y ii creando suave conducción de voces"
+    }
+  ]
+}

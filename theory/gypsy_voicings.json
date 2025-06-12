@@ -1,0 +1,28 @@
+{
+  "gmaj7Drop2": {
+    "0": { "name": "Fundamental (G Bajo)", "notes": [{ "string": 5, "fret": 3, "interval": "1" }, { "string": 3, "fret": 5, "interval": "5" }, { "string": 2, "fret": 4, "interval": "7" }, { "string": 1, "fret": 3, "interval": "3" }] },
+    "1": { "name": "1ra Inv (B Bajo)", "notes": [{ "string": 4, "fret": 2, "interval": "3" }, { "string": 2, "fret": 4, "interval": "7" }, { "string": 1, "fret": 3, "interval": "1" }, { "string": 0, "fret": 2, "interval": "5" }] },
+    "2": { "name": "2da Inv (D Bajo)", "notes": [{ "string": 3, "fret": 5, "interval": "5" }, { "string": 1, "fret": 3, "interval": "1" }, { "string": 0, "fret": 2, "interval": "3" }, { "string": 2, "fret": 4, "interval": "7" }] },
+    "3": { "name": "3ra Inv (F# Bajo)", "notes": [{ "string": 5, "fret": 2, "interval": "7" }, { "string": 3, "fret": 2, "interval": "3" }, { "string": 2, "fret": 0, "interval": "5" }, { "string": 1, "fret": 0, "interval": "1" }] }
+  },
+  "g7Drop2": {
+    "0": { "name": "Fundamental (G Bajo)", "notes": [{ "string": 5, "fret": 3, "interval": "1" }, { "string": 3, "fret": 5, "interval": "5" }, { "string": 2, "fret": 3, "interval": "b7" }, { "string": 1, "fret": 3, "interval": "3" }] },
+    "1": { "name": "1ra Inv (B Bajo)", "notes": [{ "string": 4, "fret": 2, "interval": "3" }, { "string": 2, "fret": 3, "interval": "b7" }, { "string": 1, "fret": 3, "interval": "1" }, { "string": 0, "fret": 2, "interval": "5" }] },
+    "2": { "name": "2da Inv (D Bajo)", "notes": [{ "string": 3, "fret": 5, "interval": "5" }, { "string": 1, "fret": 3, "interval": "1" }, { "string": 0, "fret": 2, "interval": "3" }, { "string": 2, "fret": 3, "interval": "b7" }] },
+    "3": { "name": "3ra Inv (F Bajo)", "notes": [{ "string": 5, "fret": 1, "interval": "b7" }, { "string": 3, "fret": 2, "interval": "3" }, { "string": 2, "fret": 0, "interval": "5" }, { "string": 1, "fret": 0, "interval": "1" }] }
+  },
+  "gm6": {
+    "0": { "name": "Forma 1 (G Bajo 6ta C.)", "notes": [{ "string": 5, "fret": 3, "interval": "1" }, { "string": 4, "fret": 5, "interval": "5" }, { "string": 3, "fret": 5, "interval": "b3" }, { "string": 2, "fret": 5, "interval": "6" }] },
+    "1": { "name": "Forma 2 (G Bajo 5ta C.)", "notes": [{ "string": 4, "fret": 10, "interval": "1" }, { "string": 3, "fret": 8, "interval": "6" }, { "string": 2, "fret": 7, "interval": "b3" }, { "string": 1, "fret": 6, "interval": "5" }] },
+    "2": { "name": "Forma 3 (Bb Bajo 5ta C.)", "notes": [{ "string": 4, "fret": 1, "interval": "b3" }, { "string": 3, "fret": 1, "interval": "6" }, { "string": 2, "fret": 2, "interval": "1" }, { "string": 1, "fret": 3, "interval": "5" }] },
+    "3": { "name": "Forma 4 (D Bajo 4ta C.)", "notes": [{ "string": 3, "fret": 0, "interval": "5" }, { "string": 2, "fret": 2, "interval": "1" }, { "string": 1, "fret": 1, "interval": "6" }, { "string": 0, "fret": 3, "interval": "b3" }] },
+    "4": { "name": "Forma 5 (E Bajo 4ta C.)", "notes": [{ "string": 3, "fret": 2, "interval": "6" }, { "string": 2, "fret": 3, "interval": "b3" }, { "string": 1, "fret": 3, "interval": "1" }, { "string": 0, "fret": 2, "interval": "5" }] }
+  },
+  "gDim7": {
+    "0": { "name": "Forma 1 (G Bajo 6ta C.)", "notes": [{ "string": 5, "fret": 3, "interval": "1" }, { "string": 3, "fret": 2, "interval": "b5" }, { "string": 2, "fret": 3, "interval": "bb7" }, { "string": 1, "fret": 2, "interval": "b3" }] },
+    "1": { "name": "Forma 2 (Bb Bajo 5ta C.)", "notes": [{ "string": 4, "fret": 1, "interval": "b3" }, { "string": 3, "fret": 2, "interval": "bb7" }, { "string": 2, "fret": 0, "interval": "b5" }, { "string": 1, "fret": 2, "interval": "1" }] },
+    "2": { "name": "Forma 3 (Db Bajo 5ta C.)", "notes": [{ "string": 4, "fret": 4, "interval": "b5" }, { "string": 3, "fret": 5, "interval": "1" }, { "string": 2, "fret": 3, "interval": "b3" }, { "string": 1, "fret": 5, "interval": "bb7" }] },
+    "3": { "name": "Forma 4 (E/Fb Bajo 5ta C.)", "notes": [{ "string": 4, "fret": 7, "interval": "bb7" }, { "string": 3, "fret": 8, "interval": "b3" }, { "string": 2, "fret": 6, "interval": "1" }, { "string": 1, "fret": 8, "interval": "b5" }] },
+    "4": { "name": "Forma 5 (G Bajo 4ta C.)", "notes": [{ "string": 3, "fret": 5, "interval": "1" }, { "string": 2, "fret": 3, "interval": "b3" }, { "string": 1, "fret": 5, "interval": "bb7" }, { "string": 0, "fret": 4, "interval": "b5" }] }
+  }
+}
