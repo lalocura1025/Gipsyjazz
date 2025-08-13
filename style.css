@@ -108,6 +108,7 @@ select {
   position: relative;
   padding: 1rem 0;
   border-right: 2px solid var(--fret-wire);
+  border-top: 1px solid #555;
   display: flex;
   justify-content: center;
   align-items: center;
