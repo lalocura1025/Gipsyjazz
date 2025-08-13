@@ -5,16 +5,20 @@ export class FretboardUI {
     rootSelect,
     typeSelect,
     nameSelect,
+    dropSelect,
     fretboardContainer,
     soundToggle,
-    chordDisplay
+    chordDisplay,
+    dataManager
   ) {
     this.rootSelect = rootSelect;
     this.typeSelect = typeSelect;
     this.nameSelect = nameSelect;
+    this.dropSelect = dropSelect;
     this.fretboardContainer = fretboardContainer;
     this.soundToggle = soundToggle;
     this.chordDisplay = chordDisplay;
+    this.dataManager = dataManager;
     this.fretClickCallback = null;
     this.fretElements = []; // To cache fret elements
   }
@@ -66,19 +70,35 @@ export class FretboardUI {
     this.fretboardContainer.appendChild(fretboard);
   }
 
-  displayNotes(rootNote, intervals) {
-    // Clear previous notes
-    this.fretboardContainer
-      .querySelectorAll('.note')
-      .forEach((note) => note.remove());
+  getNoteNameFromValue(noteValue) {
+    return CANONICAL_NOTE_NAMES[noteValue % 12];
+  }
 
+  getDropVoicing(intervals, drop) {
+    if (drop === '2' && intervals.length === 4) {
+      const secondNote = intervals.splice(2, 1);
+      intervals.unshift(secondNote[0] - 12);
+    } else if (drop === '3' && intervals.length === 4) {
+      const thirdNote = intervals.splice(1, 1);
+      intervals.unshift(thirdNote[0] - 12);
+    }
+    return intervals;
+  }
+
+  displayNotes(rootNote, intervals, drop) {
+    this.fretboardContainer.querySelectorAll('.note').forEach((note) => note.remove());
     if (!intervals || !rootNote) return;
 
-    const rootIndex = NOTE_TO_VALUE[rootNote];
-    if (rootIndex === undefined) return; // Unknown root note
+    const rootValue = NOTE_TO_VALUE[rootNote];
+    if (rootValue === undefined) return;
 
-    const scaleNotes = intervals.map(
-      (interval) => CANONICAL_NOTE_NAMES[(rootIndex + interval) % 12]
+    let finalIntervals = [...intervals];
+    if (drop && (this.typeSelect.value === 'chords' || this.typeSelect.value === 'arpeggios')) {
+      finalIntervals = this.getDropVoicing(finalIntervals, drop);
+    }
+
+    const scaleNotes = finalIntervals.map(
+      (interval) => (rootValue + interval) % 12
     );
 
     TUNING.toReversed().forEach((openNote, stringIndex) => {
@@ -86,20 +106,21 @@ export class FretboardUI {
       const stringNum = 5 - stringIndex;
 
       for (let fret = 0; fret <= NUM_FRETS; fret++) {
-        const currentNoteIndex = (openNoteIndex + fret) % 12;
-        const currentNote = CANONICAL_NOTE_NAMES[currentNoteIndex];
+        const currentNoteValue = (openNoteIndex + fret);
+        const currentNoteName = this.getNoteNameFromValue(currentNoteValue);
 
-        if (scaleNotes.includes(currentNote)) {
-          const fretEl = this.fretElements[stringNum]?.[fret];
+        if (scaleNotes.includes(currentNoteValue % 12)) {
+          const fretEl = this.freElements[stringNum]?.[fret];
           if (fretEl) {
-            this.addNoteToFret(fretEl, currentNote, rootNote);
+            const interval = finalIntervals.find(i => (rootValue + i) % 12 === currentNoteValue % 12);
+            this.addNoteToFret(fretEl, currentNoteName, rootNote, interval);
           }
         }
       }
     });
   }
 
-  addNoteToFret(fretEl, noteName, rootNote) {
+  addNoteToFret(fretEl, noteName, rootNote, interval) {
     const noteEl = document.createElement('div');
     noteEl.className = 'note';
     noteEl.textContent = noteName;
@@ -110,8 +131,29 @@ export class FretboardUI {
 
     noteEl.dataset.string = fretEl.dataset.string;
     noteEl.dataset.fret = fretEl.dataset.fret;
+    noteEl.dataset.interval = interval;
+
+    noteEl.addEventListener('click', () => this.highlightInterval(noteEl));
 
     fretEl.appendChild(noteEl);
+  }
+
+  highlightInterval(noteEl) {
+    const interval = parseInt(noteEl.dataset.interval, 10);
+    const intervalName = this.dataManager.getIntervalName(interval);
+
+    // Remove any existing interval display
+    const existingInterval = document.getElementById('interval-display');
+    if (existingInterval) {
+      existingInterval.remove();
+    }
+
+    if (intervalName) {
+      const intervalDisplay = document.createElement('div');
+      intervalDisplay.id = 'interval-display';
+      intervalDisplay.textContent = `Intervalo: ${intervalName}`;
+      this.fretboardContainer.appendChild(intervalDisplay);
+    }
   }
 
   toggleFretSelected(string, fret, isSelected) {

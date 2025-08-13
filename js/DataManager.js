@@ -47,4 +47,13 @@ export class DataManager {
     }
     return semitone;
   }
+
+  getIntervalName(semitone) {
+    for (const name in SEMITONE_MAP) {
+      if (SEMITONE_MAP[name] === semitone) {
+        return name;
+      }
+    }
+    return null;
+  }
 }

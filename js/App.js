@@ -14,6 +14,7 @@ class App {
       rootSelect: document.getElementById('root-note-select'),
       typeSelect: document.getElementById('type-select'),
       nameSelect: document.getElementById('name-select'),
+      dropSelect: document.getElementById('drop-select'),
       fretboardContainer: document.getElementById('fretboard-container'),
       soundToggle: document.getElementById('toggle-sound'),
       chordDisplay: document.getElementById('chord-display'),
@@ -24,15 +25,18 @@ class App {
       this.dom.rootSelect,
       this.dom.typeSelect,
       this.dom.nameSelect,
+      this.dom.dropSelect,
       this.dom.fretboardContainer,
       this.dom.soundToggle,
-      this.dom.chordDisplay
+      this.dom.chordDisplay,
+      this.dataManager
     );
 
     this.state = {
       rootNote: 'C',
       type: 'scales',
       name: '',
+      drop: '',
       soundEnabled: true,
       selectedNotes: [], // To store { string, fret, noteName }
       mode: 'display', // 'display' or 'identify'
@@ -68,6 +72,11 @@ class App {
 
     this.dom.nameSelect.addEventListener('change', (e) => {
       this.state.name = e.target.value;
+      this.render();
+    });
+
+    this.dom.dropSelect.addEventListener('change', (e) => {
+      this.state.drop = e.target.value;
       this.render();
     });
 
@@ -171,7 +180,7 @@ class App {
       this.state.type,
       this.state.name
     );
-    this.ui.displayNotes(this.state.rootNote, intervals);
+    this.ui.displayNotes(this.state.rootNote, intervals, this.state.drop);
   }
 }
 
