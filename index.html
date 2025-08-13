@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gipsyjazz Mástil de Estudio</title>
     <link rel="stylesheet" href="style.css" />
-    <script type="module" src="app.js"></script>
+    <script type="module" src="js/App.js"></script>
   </head>
   <body>
     <header>
@@ -14,6 +14,10 @@
 
     <main>
       <div class="controls">
+        <div class="control-group mode-selector">
+          <label><input type="radio" name="mode" value="display" checked> Modo Visualización</label>
+          <label><input type="radio" name="mode" value="identify"> Modo Identificación</label>
+        </div>
         <div class="control-group">
           <label for="root-note-select">Tónica:</label>
           <select id="root-note-select">
@@ -52,6 +56,11 @@
           <label>&nbsp;</label>
           <button id="toggle-sound">Sonido On</button>
         </div>
+      </div>
+
+      <div id="chord-display-container">
+        <h2>Acorde Identificado:</h2>
+        <p id="chord-display">---</p>
       </div>
 
       <div id="fretboard-container">

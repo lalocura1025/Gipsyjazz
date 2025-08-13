@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GipsyJazz Test Suite</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h1 { color: #333; }
+    #results { border: 1px solid #ccc; padding: 10px; margin-top: 20px; }
+    .summary { font-size: 1.2em; font-weight: bold; }
+    .passed { color: green; }
+    .failed { color: red; }
+    ul { list-style-type: none; padding-left: 0; }
+    li.failure { color: red; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>GipsyJazz Test Suite Runner</h1>
+  <div id="results">
+    <p>Running tests...</p>
+  </div>
+
+  <script type="module">
+    import { runDataManagerTests } from './DataManager.test.js';
+    import { runChordIdentifierTests } from './ChordIdentifier.test.js';
+
+    function renderResults(testSuiteName, results) {
+      const resultsContainer = document.getElementById('results');
+
+      const suiteDiv = document.createElement('div');
+      suiteDiv.className = 'suite';
+
+      const summary = document.createElement('div');
+      summary.className = 'summary';
+      summary.innerHTML = `
+        <h2>${testSuiteName}</h2>
+        <p class="passed">Passed: ${results.passed}</p>
+        <p class="failed">Failed: ${results.failed}</p>
+      `;
+      suiteDiv.appendChild(summary);
+
+      if (results.failed > 0) {
+        const failuresList = document.createElement('ul');
+        results.failures.forEach(failure => {
+          const item = document.createElement('li');
+          item.className = 'failure';
+          item.textContent = failure;
+          failuresList.appendChild(item);
+        });
+        suiteDiv.appendChild(failuresList);
+      }
+      resultsContainer.appendChild(suiteDiv);
+    }
+
+    // Clear the initial message
+    document.getElementById('results').innerHTML = '';
+
+    // Run all test suites
+    const dmResults = runDataManagerTests();
+    renderResults('DataManager Tests', dmResults);
+
+    const ciResults = runChordIdentifierTests();
+    renderResults('ChordIdentifier Tests', ciResults);
+
+  </script>
+</body>
+</html>
