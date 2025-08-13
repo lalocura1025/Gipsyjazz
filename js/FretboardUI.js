@@ -1,4 +1,4 @@
-import { NOTES, TUNING, NUM_FRETS } from './config.js';
+import { CANONICAL_NOTE_NAMES, NOTE_TO_VALUE, TUNING, NUM_FRETS } from './config.js';
 
 export class FretboardUI {
   constructor(
@@ -6,19 +6,21 @@ export class FretboardUI {
     typeSelect,
     nameSelect,
     fretboardContainer,
-    soundToggle
+    soundToggle,
+    chordDisplay
   ) {
     this.rootSelect = rootSelect;
     this.typeSelect = typeSelect;
     this.nameSelect = nameSelect;
     this.fretboardContainer = fretboardContainer;
     this.soundToggle = soundToggle;
-    this.noteClickCallback = null;
+    this.chordDisplay = chordDisplay;
+    this.fretClickCallback = null;
     this.fretElements = []; // To cache fret elements
   }
 
-  onNoteClick(callback) {
-    this.noteClickCallback = callback;
+  onFretClick(callback) {
+    this.fretClickCallback = callback;
   }
 
   updateNameSelector(names) {
@@ -48,6 +50,13 @@ export class FretboardUI {
         fretEl.className = 'fret';
         fretEl.dataset.fret = fret;
         fretEl.dataset.string = stringNum;
+
+        fretEl.addEventListener('click', () => {
+          if (this.fretClickCallback) {
+            this.fretClickCallback(stringNum, fret);
+          }
+        });
+
         stringEl.appendChild(fretEl);
         this.fretElements[stringNum][fret] = fretEl; // Cache the element
       }
@@ -65,18 +74,20 @@ export class FretboardUI {
 
     if (!intervals || !rootNote) return;
 
-    const rootIndex = NOTES.indexOf(rootNote);
+    const rootIndex = NOTE_TO_VALUE[rootNote];
+    if (rootIndex === undefined) return; // Unknown root note
+
     const scaleNotes = intervals.map(
-      (interval) => NOTES[(rootIndex + interval) % 12]
+      (interval) => CANONICAL_NOTE_NAMES[(rootIndex + interval) % 12]
     );
 
     TUNING.toReversed().forEach((openNote, stringIndex) => {
-      const openNoteIndex = NOTES.indexOf(openNote);
+      const openNoteIndex = NOTE_TO_VALUE[openNote];
       const stringNum = 5 - stringIndex;
 
       for (let fret = 0; fret <= NUM_FRETS; fret++) {
         const currentNoteIndex = (openNoteIndex + fret) % 12;
-        const currentNote = NOTES[currentNoteIndex];
+        const currentNote = CANONICAL_NOTE_NAMES[currentNoteIndex];
 
         if (scaleNotes.includes(currentNote)) {
           const fretEl = this.fretElements[stringNum]?.[fret];
@@ -100,15 +111,14 @@ export class FretboardUI {
     noteEl.dataset.string = fretEl.dataset.string;
     noteEl.dataset.fret = fretEl.dataset.fret;
 
-    noteEl.addEventListener('click', (e) => {
-      if (this.noteClickCallback) {
-        const string = parseInt(e.currentTarget.dataset.string, 10);
-        const fret = parseInt(e.currentTarget.dataset.fret, 10);
-        this.noteClickCallback(string, fret);
-      }
-    });
-
     fretEl.appendChild(noteEl);
+  }
+
+  toggleFretSelected(string, fret, isSelected) {
+    const fretEl = this.fretElements[string]?.[fret];
+    if (fretEl) {
+      fretEl.classList.toggle('selected', isSelected);
+    }
   }
 
   updateSoundToggle(isSoundEnabled) {
@@ -117,5 +127,9 @@ export class FretboardUI {
 
   renderError(message) {
     this.fretboardContainer.innerHTML = `<p class="error">${message}</p>`;
+  }
+
+  updateChordDisplay(chordName) {
+    this.chordDisplay.textContent = chordName || '---';
   }
 }

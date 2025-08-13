@@ -3,11 +3,11 @@
   --bg-color: #2c3e50;
   --text-color: #ecf0f1;
   --primary-color: #3498db;
-  --fretboard-wood: #6d4c41;
+  --fretboard-wood: #ffffff;
   --fret-wire: #bdc3c7;
-  --note-bg: #e74c3c;
-  --note-root-bg: #f1c40f;
-  --note-text: #2c3e50;
+  --note-bg: #000000;
+  --note-root-bg: #ff0000;
+  --note-text: #ffffff;
   --dot-marker: #a9a9a9;
 }
 
@@ -52,6 +52,21 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.mode-selector {
+  flex-direction: row;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+}
+
+.mode-selector label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
 }
 
 label {
@@ -157,6 +172,26 @@ select {
 
 .note.root-note {
   background-color: var(--note-root-bg);
+}
+
+.fret.selected {
+  background-color: #a2d2ff; /* Light blue for selected frets */
+  border-color: #3498db;
+}
+
+#chord-display-container {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #34495e;
+  border-radius: 5px;
+}
+
+#chord-display {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  min-height: 2rem;
 }
 
 /* --- Responsive --- */

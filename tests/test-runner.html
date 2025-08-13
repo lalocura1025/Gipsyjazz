@@ -23,10 +23,13 @@
 
   <script type="module">
     import { runDataManagerTests } from './DataManager.test.js';
+    import { runChordIdentifierTests } from './ChordIdentifier.test.js';
 
     function renderResults(testSuiteName, results) {
-      const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = ''; // Clear "Running..." message
+      const resultsContainer = document.getElementById('results');
+
+      const suiteDiv = document.createElement('div');
+      suiteDiv.className = 'suite';
 
       const summary = document.createElement('div');
       summary.className = 'summary';
@@ -35,7 +38,7 @@
         <p class="passed">Passed: ${results.passed}</p>
         <p class="failed">Failed: ${results.failed}</p>
       `;
-      resultsDiv.appendChild(summary);
+      suiteDiv.appendChild(summary);
 
       if (results.failed > 0) {
         const failuresList = document.createElement('ul');
@@ -45,13 +48,20 @@
           item.textContent = failure;
           failuresList.appendChild(item);
         });
-        resultsDiv.appendChild(failuresList);
+        suiteDiv.appendChild(failuresList);
       }
+      resultsContainer.appendChild(suiteDiv);
     }
+
+    // Clear the initial message
+    document.getElementById('results').innerHTML = '';
 
     // Run all test suites
     const dmResults = runDataManagerTests();
     renderResults('DataManager Tests', dmResults);
+
+    const ciResults = runChordIdentifierTests();
+    renderResults('ChordIdentifier Tests', ciResults);
 
   </script>
 </body>
